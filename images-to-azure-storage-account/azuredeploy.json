@@ -1,0 +1,327 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "publisherEmail": {
+      "type": "string",
+      "minLength": 5,
+      "metadata": {
+        "description": "E-mail address to receive system notifications sent from API Management."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[concat('image', uniqueString(resourceGroup().id))]",
+    "apiName": "[concat('image-upload-', uniqueString(resourceGroup().id))]",
+    "containerName": "images"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "comments": "API Management uses this role to access blob storage",
+      "apiVersion": "2018-11-30",
+      "name": "[variables('apiName')]",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-04-01-preview",
+      "location": "[parameters('location')]",
+      "name": "[guid(resourceGroup().id)]",
+      "scope": "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'), '/blobServices/default/containers/', variables('containerName'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', variables('containerName'))]",
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('apiName'))]"
+      ],
+      "properties": {
+          "roleDefinitionId": "[concat(subscription().id, '/providers/Microsoft.Authorization/roleDefinitions/b7e6dc6d-f1e8-4753-8033-0f276bb0955b')]",
+          "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('apiName'))).principalId]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-01-01",
+      "name": "[variables('storageAccountName')]",
+      "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "properties": {}
+    },
+    {
+        "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+        "apiVersion": "2021-01-01",
+        "name": "[concat(variables('storageAccountName'), '/default/', variables('containerName'))]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+        ],
+        "properties": {}
+    },
+    {
+      "type": "Microsoft.ApiManagement/service",
+      "apiVersion": "2020-06-01-preview",
+      "name": "[variables('apiName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('apiName'))]"
+      ],
+      "sku": {
+        "name": "Consumption",
+        "capacity": 0
+      },
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('apiName'))]": {}
+        }
+      },
+      "properties": {
+        "publisherEmail": "[parameters('publisherEmail')]",
+        "publisherName": "[variables('apiName')]",
+        "hostnameConfigurations": [
+          {
+            "type": "Proxy",
+            "hostName": "[concat(variables('apiName'), '.azure-api.net')]",
+            "negotiateClientCertificate": false,
+            "defaultSslBinding": true
+          }
+        ],
+        "customProperties": {
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": "false",
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": "false",
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": "false",
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": "false",
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": "false",
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Protocols.Server.Http2": "false"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/azurestorage')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]"
+      ],
+      "properties": {
+        "displayName": "AzureStorage",
+        "subscriptionRequired": true,
+        "subscriptionKeyParameterNames": {
+            "query": "accessToken"
+        },
+        "serviceUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))).primaryEndpoints.blob]",
+        "protocols": ["https"],
+        "path": "/"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/azurestorage/get')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]"
+      ],
+      "properties": {
+        "displayName": "Verification",
+        "method": "GET",
+        "urlTemplate": "/"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/azurestorage/post')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]"
+      ],
+      "properties": {
+        "displayName": "Post Image",
+        "method": "POST",
+        "urlTemplate": "/"
+      }
+    },
+    {
+        "type": "Microsoft.ApiManagement/service/namedValues",
+        "apiVersion": "2020-12-01",
+        "name": "[concat(variables('apiName'), '/BlobEndpoint')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]"
+        ],
+        "properties": {
+            "displayName": "BlobEndpoint",
+            "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))).primaryEndpoints.blob]",
+            "secret": false
+        }
+    },
+    {
+        "type": "Microsoft.ApiManagement/service/namedValues",
+        "apiVersion": "2020-12-01",
+        "name": "[concat(variables('apiName'), '/ContainerName')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]"
+        ],
+        "properties": {
+            "displayName": "ContainerName",
+            "value": "[variables('containerName')]",
+            "secret": false
+        }
+    },
+    {
+        "type": "Microsoft.ApiManagement/service/namedValues",
+        "apiVersion": "2020-12-01",
+        "name": "[concat(variables('apiName'), '/ClientId')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]"
+        ],
+        "properties": {
+            "displayName": "ClientId",
+            "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('apiName'))).clientId]",
+            "secret": false
+        }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/azurestorage/get/policy')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', variables('apiName'), 'azurestorage', 'get')]"
+      ],
+      "properties": {
+        "value": "
+            <policies>
+              <inbound>
+                <base />
+              </inbound>
+              <backend>
+                <base />
+              </backend>
+              <outbound>
+                <base />
+                <mock-response status-code=\"200\" content-type=\"application/json\" />
+              </outbound>
+              <on-error>
+                <base />
+              </on-error>
+            </policies>
+        ",
+        "format": "rawxml"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/azurestorage/post/policy')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', variables('apiName'), 'azurestorage', 'post')]",
+        "[resourceId('Microsoft.ApiManagement/service/namedValues', variables('apiName'), 'ContainerName')]",
+        "[resourceId('Microsoft.ApiManagement/service/namedValues', variables('apiName'), 'BlobEndpoint')]",
+        "[resourceId('Microsoft.ApiManagement/service/namedValues', variables('apiName'), 'ClientId')]"
+      ],
+      "properties": {
+        "value": "
+            <policies>
+                <inbound>
+                    <check-header name=\"Content-Type\" failed-check-httpcode=\"400\" failed-check-error-message=\"Unsupported Content-Type header, use image/jpeg\">
+                      <value>image/jpeg</value>
+                    </check-header>
+                    <check-header name=\"content-disposition\" failed-check-httpcode=\"400\" failed-check-error-message=\"Missing header content-disposition\" />
+                    <set-variable name=\"BlobName\" value=\"@{
+                        string contentDisposition = context.Request.Headers.GetValueOrDefault(\"content-disposition\");
+                        var regex = new Regex(\"filename=\\\"(?<filename>.*)\\\"\");
+                        var match = regex.Match(contentDisposition);
+                        var filename = match.Groups[\"filename\"].Value;
+
+                        return filename;
+                    }\" />
+                    <choose>
+                      <when condition=\"@(context.Variables.GetValueOrDefault(\"BlobName\") == \"\")\">
+                          <return-response>
+                              <set-status code=\"400\" reason=\"Bad request\" />
+                              <set-body>@(new JObject(new JProperty(\"statusCode\", 400), new JProperty(\"message\", \"Incorrect format provided in content-disposition header\")).ToString())</set-body>
+                          </return-response>
+                      </when>
+                    </choose>
+                    <base />
+                    <set-variable name=\"BlobEndpoint\" value=\"{{BlobEndpoint}}\" />
+                    <set-variable name=\"ContainerName\" value=\"{{ContainerName}}\" />
+                    <set-method>PUT</set-method>
+                    <set-header name=\"x-ms-version\" exists-action=\"override\">
+                        <value>2020-06-12</value>
+                    </set-header>
+                    <set-header name=\"x-ms-blob-type\" exists-action=\"override\">
+                        <value>BlockBlob</value>
+                    </set-header>
+                    <set-backend-service base-url=\"@{
+                        string blobEndpoint = context.Variables.GetValueOrDefault<string>(\"BlobEndpoint\");
+                        string containerName = context.Variables.GetValueOrDefault<string>(\"ContainerName\");
+                        string blobName = context.Variables.GetValueOrDefault<string>(\"BlobName\");
+                        return String.Format(\"{0}{1}/{2}\", blobEndpoint, containerName, blobName);
+                    }\" />
+                    <authentication-managed-identity client-id=\"{{ClientId}}\" resource=\"https://storage.azure.com/\" />
+                </inbound>
+                <backend>
+                    <base />
+                </backend>
+                <outbound>
+                    <base />
+                </outbound>
+                <on-error>
+                    <base />
+                </on-error>
+            </policies>
+        ",
+        "format": "rawxml"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/subscriptions",
+      "apiVersion": "2020-12-01",
+      "name": "[concat(variables('apiName'), '/AxisDeviceSubscription')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]"
+      ],
+      "properties": {
+        "displayName": "Axis Device Subscription",
+        "scope": "[resourceId('Microsoft.ApiManagement/service/apis', variables('apiName'), 'azurestorage')]"
+      }
+    }
+  ],
+  "outputs": {
+    "endpointUrl": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ApiManagement/service', variables('apiName'))).gatewayUrl]"
+    },
+    "serviceName": {
+      "type": "string",
+      "value": "[variables('apiName')]"
+    },
+    "apiManagementResourceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.ApiManagement/service', variables('apiName'))]"
+    }
+  }
+}
