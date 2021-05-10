@@ -2,44 +2,45 @@
 
 This page addresses the guidelines for the following actions below.
 
-- How to clone the repo.
+- How to clone the repository on your local machine
 - How to make a good Pull Request (PR)
-- How to Post an issue in the issue tracker
+- How to post an issue in the issue tracker
 
 ## How to clone the repository on your local machine
 
 Please use the following commands to clone the examples repository on your local machine.
 
 **Fork it from GitHub GUI**
+
 Start by [forking the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
 
 **Clone it**
 
-```
-git clone https://github.com/<your username>/acap3-examples-azure.git
+```bash
+$ git clone https://github.com/<your username>/acap3-examples-azure.git
 ```
 
 **Create your feature branch**
 
-```
-git checkout -b <branch_name>
+```bash
+$ git checkout -b <branch name>
 ```
 
 **Commit your changes**
 
-```
-git commit -a -m "Follow the conventional commit messages style to write this message"
+```bash
+$ git commit -a -m "Follow the conventional commit messages style to write this message"
 ```
 
 **Push to the branch**
 
-```
-git push origin <branch_name>
+```bash
+$ git push origin <branch name>
 ```
 
 **Make a Pull request from GitHub GUI**
 
-## How to make a good Pull request
+## How to make a good Pull Request (PR)
 
 Please consider the following guidelines before making a Pull Request.
 
@@ -55,4 +56,4 @@ Please follow the guidelines below before posting an issue in the issue tracker.
 
 - Axis Camera model (e.g., MQ1615) used when running the examples
 - Firmware version installed on the camera
-- Error(s) showed during building or running the source code
+- Error(s) showed during building or running the example

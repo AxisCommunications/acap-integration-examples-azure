@@ -1,0 +1,18 @@
+name: Build telemetry-to-azure-iot-hub
+
+on:
+  push:
+    paths:
+      - .github/workflows/telemetry-to-azure-iot-hub.yml
+      - telemetry-to-azure-iot-hub/**
+
+jobs:
+  build:
+    name: static analysis
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: telemetry-to-azure-iot-hub
+    steps:
+      - uses: actions/checkout@v2
+      - run: shellcheck ./create-cloud-resources.sh
