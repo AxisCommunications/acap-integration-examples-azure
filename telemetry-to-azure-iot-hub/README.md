@@ -2,6 +2,8 @@ _Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved._
 
 # Telemetry to Azure IoT Hub
 
+[![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
+
 ## Table of contents
 
 - [Overview](#overview)
