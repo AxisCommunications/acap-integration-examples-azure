@@ -17,7 +17,7 @@ Start by [forking the repository](https://docs.github.com/en/github/getting-star
 **Clone it**
 
 ```bash
-$ git clone https://github.com/<your username>/acap3-examples-azure.git
+$ git clone https://github.com/<your username>/acap-integration-examples-azure.git
 ```
 
 **Create your feature branch**

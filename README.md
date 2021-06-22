@@ -14,7 +14,7 @@ This repository focuses on providing examples where we create the integration be
 
 The repository contains a set of examples, each tailored towards a specific problem. All examples have a README file in its directory which shows overview, example directory structure and step-by-step instructions on how to deploy the Azure infrastructure and how to configure the camera to interact with Azure.
 
-If you find yourself wishing there was another example more relevant to your use case, please don't hesitate to [start a discussion](https://github.com/AxisCommunications/acap3-examples-azure/discussions/new) or [open a new issue](https://github.com/AxisCommunications/acap3-examples-azure/issues/new/choose).
+If you find yourself wishing there was another example more relevant to your use case, please don't hesitate to [start a discussion](https://github.com/AxisCommunications/acap-integration-examples-azure/discussions/new) or [open a new issue](https://github.com/AxisCommunications/acap-integration-examples-azure/issues/new/choose).
 
 - [images-to-azure-storage-account](./images-to-azure-storage-account/)
   - This example covers sending images from a camera to a storage account in Azure

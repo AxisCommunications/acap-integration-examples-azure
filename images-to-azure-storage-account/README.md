@@ -47,8 +47,8 @@ The instructions are divided into two parts. The first part covers deploying the
 To start off, make sure to clone the repository and navigate into the example directory.
 
 ```bash
-git clone https://github.com/AxisCommunications/acap3-examples-azure.git
-cd acap3-examples-azure/images-to-azure-storage-account
+git clone https://github.com/AxisCommunications/acap-integration-examples-azure.git
+cd acap-integration-examples-azure/images-to-azure-storage-account
 ```
 
 ### Deploy Azure resources
