@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/telemetry-to-azure-iot-hub.yml
       - telemetry-to-azure-iot-hub/**
+  workflow_dispatch:
 
 jobs:
   build:
