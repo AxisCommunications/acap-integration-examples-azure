@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: Azure/arm-ttk
-          ref: 4e5c7ad22667fe4ac01e5b06f846e3fd6cc87e39
+          ref: 32a30b8472d4beb5c702a0853c14d5af8991a1e2
           path: arm-ttk
       - shell: pwsh
         run: |
