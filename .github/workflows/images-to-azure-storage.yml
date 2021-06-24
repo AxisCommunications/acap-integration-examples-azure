@@ -14,13 +14,16 @@ jobs:
       run:
         working-directory: main/images-to-azure-storage-account
     steps:
+      - run: dir /s /b
       - uses: actions/checkout@v2
         with:
           path: main
+      - run: dir /s /b
       - uses: actions/checkout@v2
         with:
           repository: Azure/arm-ttk
           path: arm-ttk
+      - run: dir /s /b
       - shell: pwsh
         run: |
           Import-Module ..\..\arm-ttk\arm-ttk\arm-ttk.psd1
