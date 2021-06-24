@@ -67,7 +67,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service",
-      "apiVersion": "2020-06-01-preview",
+      "apiVersion": "2019-12-01",
       "name": "[variables('apiName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
