@@ -256,8 +256,8 @@ Finally select pulses to be the event type the camera sends to the Azure IoT Hub
 1. While still in _Events_, select _MQTT events_
 1. In the _Publish_ section use the following settings
    - **Use default condition prefix**: `Off`
-   - **Custom condition prefix**: `devices/<device identity name>/messages/events`, e.g. `devices/device01/messages/events`
-   - **Include condition name**: `checked`
+   - **Custom condition prefix**: `devices/<device identity name>/messages/events/`, e.g. `devices/device01/messages/events/`
+   - **Include condition name**: `unchecked`
    - **Include condition namespaces**: `unchecked`
    - **Include serial number in payload**: `checked`
 1. In the _Event filter list_ section use the following settings
