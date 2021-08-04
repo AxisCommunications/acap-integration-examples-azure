@@ -11,6 +11,7 @@ _Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved._
 - [File structure](#file-structure)
 - [Instructions](#instructions)
 - [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
 - [License](#license)
 
 ## Overview
@@ -277,6 +278,17 @@ To delete all deployed resources in Azure, run the following CLI command
 ```bash
 az group delete --name <resource group name>
 ```
+
+## Troubleshooting
+
+This section will highlight some of the common problems one might encounter when running this example application.
+
+### MQTT client cannot connect to the Azure IoT Hub
+
+If the MQTT client is unable to successfully connect to the Azure IoT Hub, please make sure that the following statements are true.
+
+- **The camera is not behind a proxy**. This example does not support a network topology where requests needs to traverse a proxy to reach the internet.
+- **The camera date and time is correctly configured**. The date and time of the camera needs to be correctly configured.
 
 ## License
 
