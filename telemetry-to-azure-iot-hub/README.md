@@ -285,7 +285,7 @@ This section will highlight some of the common problems one might encounter when
 
 ### MQTT client cannot connect to the Azure IoT Hub
 
-If the MQTT client is unable to successfully connect the the Azure IoT Hub, please make sure that the following statements are true.
+If the MQTT client is unable to successfully connect to the Azure IoT Hub, please make sure that the following statements are true.
 
 - **The camera is not behind a proxy**. This example does not support a network topology where requests needs to traverse a proxy to reach the internet.
 - **The camera date and time is correctly configured**. The date and time of the camera needs to be correctly configured.
