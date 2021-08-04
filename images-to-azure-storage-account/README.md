@@ -11,6 +11,7 @@ _Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved._
 - [File structure](#file-structure)
 - [Instructions](#instructions)
 - [Cleanup](#cleanup)
+- [Troubleshooting](#troubleshooting)
 - [License](#license)
 
 ## Overview
@@ -181,6 +182,16 @@ Now let's navigate to the _Rules_ tab. Here we'll finally create a rule that com
 Click the _Save_ button.
 
 At this point the rule will become active and send a snapshot to Azure storage every minute.
+
+## Troubleshooting
+
+This section will highlight some of the common problems one might encounter when running this example application.
+
+### No images are sent to the Azure storage account
+
+If the camera is unable to successfully send images to the Azure storage account, please make sure that the following statements are true.
+
+- **The camera is not behind a proxy**. This example does not support a network topology where requests needs to traverse a proxy to reach the internet.
 
 ## Cleanup
 
