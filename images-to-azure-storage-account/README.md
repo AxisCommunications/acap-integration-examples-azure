@@ -183,6 +183,14 @@ Click the _Save_ button.
 
 At this point the rule will become active and send a snapshot to Azure storage every minute.
 
+## Cleanup
+
+To delete the deployed Azure services, including all images in the storage account, either use the Azure portal to delete the resource group, or run the following CLI command.
+
+```bash
+az group delete --name <resource group name>
+```
+
 ## Troubleshooting
 
 This section will highlight some of the common problems one might encounter when running this example application.
@@ -192,14 +200,6 @@ This section will highlight some of the common problems one might encounter when
 If the camera is unable to successfully send images to the Azure storage account, please make sure that the following statements are true.
 
 - **The camera is not behind a proxy**. This example does not support a network topology where requests needs to traverse a proxy to reach the internet.
-
-## Cleanup
-
-To delete the deployed Azure services, including all images in the storage account, either use the Azure portal to delete the resource group, or run the following CLI command.
-
-```bash
-az group delete --name <resource group name>
-```
 
 ## License
 
