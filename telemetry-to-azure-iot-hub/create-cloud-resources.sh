@@ -117,7 +117,7 @@ if [[ ! -f "$device_key_path" && ! -f "$device_cert_path" ]] ; then
 fi
 
 echo "Checking if device identity exists in IoT Hub..."
-if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$device_identity_name'] | length(@)") -ne 1 ]] ; then
+if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$device_identity_name' && capabilities.iotEdge==\`false\`] | length(@)") -ne 1 ]] ; then
   echo "Device identity '$device_identity_name' does not exist in IoT Hub, creating it..."
   az iot hub device-identity create \
     --resource-group "$resource_group_name" \
