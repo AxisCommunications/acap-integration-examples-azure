@@ -147,7 +147,7 @@ resource certificates 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
       # certificate, which we later on will upload to the IoT Hub. All device
       # certificates should be generated from this CA certificate.
       openssl genrsa -out ca.key 4096
-      openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 \
+      openssl req -x509 -new -nodes -key ca.key -sha256 -days 365 \
         -subj "/O=$organization_name/CN=$organization_name" -out ca.pem
       openssl pkcs12 -inkey ca.key -in ca.pem -export -passout pass: \
         -out ca.pfx
@@ -158,7 +158,7 @@ resource certificates 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
       openssl genrsa -out device.key 2048
       openssl req -new -key device.key -subj "/CN=$device_identity" -out device.csr
       openssl x509 -req -in device.csr -CA ca.pem -CAkey ca.key -CAcreateserial \
-        -days 3650 -sha256 -out device.pem
+        -days 365 -sha256 -out device.pem
       openssl pkcs12 -inkey device.key -in device.pem -export -passout pass: \
         -out device.pfx
 

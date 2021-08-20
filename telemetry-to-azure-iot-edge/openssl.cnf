@@ -1,0 +1,26 @@
+[ req ]
+default_bits           = 2048
+distinguished_name     = req_distinguished_name
+
+[ req_distinguished_name ]
+
+[ v3_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer:always
+basicConstraints       = critical, CA:true
+keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+[ v3_intermediate_ca ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer:always
+basicConstraints       = critical, CA:true
+keyUsage               = critical, digitalSignature, cRLSign, keyCertSign
+
+[ usr_cert ]
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always,issuer:always
+basicConstraints       = CA:FALSE
+keyUsage               = critical, nonRepudiation, digitalSignature, keyEncipherment
+nsCertType             = client, email
+nsComment              = "OpenSSL Generated Client Certificate"
+extendedKeyUsage       = clientAuth, emailProtection
