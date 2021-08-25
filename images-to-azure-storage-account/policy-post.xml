@@ -1,0 +1,49 @@
+<policies>
+    <inbound>
+        <check-header name="Content-Type" failed-check-httpcode="400" failed-check-error-message="Unsupported Content-Type header, use image/jpeg">
+            <value>image/jpeg</value>
+        </check-header>
+        <check-header name="content-disposition" failed-check-httpcode="400" failed-check-error-message="Missing header content-disposition" />
+        <set-variable name="BlobName" value="@{
+            string contentDisposition = context.Request.Headers.GetValueOrDefault("content-disposition");
+            var regex = new Regex("filename=\"(?<filename>.*)\"");
+            var match = regex.Match(contentDisposition);
+            var filename = match.Groups["filename"].Value;
+            return filename;
+        }" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault("BlobName") == "")">
+                <return-response>
+                    <set-status code="400" reason="Bad request" />
+                    <set-body>@(new JObject(new JProperty("statusCode", 400), new JProperty("message", "Incorrect format provided in content-disposition header")).ToString())</set-body>
+                </return-response>
+            </when>
+        </choose>
+        <base />
+        <set-variable name="BlobEndpoint" value="{{BlobEndpoint}}" />
+        <set-variable name="ContainerName" value="{{ContainerName}}" />
+        <set-method>PUT</set-method>
+        <set-header name="x-ms-version" exists-action="override">
+            <value>2020-06-12</value>
+        </set-header>
+        <set-header name="x-ms-blob-type" exists-action="override">
+            <value>BlockBlob</value>
+        </set-header>
+        <set-backend-service base-url="@{
+            string blobEndpoint = context.Variables.GetValueOrDefault<string>("BlobEndpoint");
+            string containerName = context.Variables.GetValueOrDefault<string>("ContainerName");
+            string blobName = context.Variables.GetValueOrDefault<string>("BlobName");
+            return String.Format("{0}{1}/{2}", blobEndpoint, containerName, blobName);
+        }" />
+        <authentication-managed-identity resource="https://storage.azure.com/" />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
