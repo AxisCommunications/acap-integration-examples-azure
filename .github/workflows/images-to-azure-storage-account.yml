@@ -8,20 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: main/images-to-azure-storage-account
+        working-directory: images-to-azure-storage-account
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: main
-      - uses: actions/checkout@v2
-        with:
-          repository: Azure/arm-ttk
-          path: arm-ttk
-      - shell: pwsh
-        run: |
-          Import-Module ..\..\arm-ttk\arm-ttk\arm-ttk.psd1
-          Test-AzTemplate -TemplatePath .
+      - run: az bicep build --file main.bicep
