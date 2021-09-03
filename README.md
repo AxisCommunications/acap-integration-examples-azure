@@ -1,4 +1,4 @@
-_Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved._
+*Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
 # Integration between Axis devices and Azure
 
