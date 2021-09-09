@@ -9,11 +9,10 @@ on:
 
 jobs:
   build:
-    name: static analysis
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: telemetry-to-azure-iot-hub
     steps:
       - uses: actions/checkout@v2
-      - run: shellcheck ./create-cloud-resources.sh
+      - run: az bicep build --file main.bicep

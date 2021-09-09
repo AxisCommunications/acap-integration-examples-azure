@@ -1,7 +1,19 @@
+// Azure Bicep template deploying the required resources to send images from an
+// Axis camera to an Azure storage account.
+//
+// The template can be deployed from a terminal using the following command.
+//
+// az deployment group create -g <resource group> -f main.bicep --parameters \
+//   publisherEmail=<e-mail address>
+
 @description('E-mail address to receive system notifications sent from API Management.')
 param publisherEmail string
 
 var commonName = 'image-upload-${uniqueString(resourceGroup().id)}'
+
+// -----------------------------------------------------------------------------
+// Azure storage account receiving the images from the Axis camera.
+// -----------------------------------------------------------------------------
 
 // storage-blob-data-contributor built-in role
 // https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor
@@ -32,6 +44,11 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-prev
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', storageBlobDataContributorRoleId)
   }
 }
+
+// -----------------------------------------------------------------------------
+// Azure API Management authorizing and forwarding incomming requests to the
+// Azure storage account.
+// -----------------------------------------------------------------------------
 
 resource apiService 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
   name: commonName
@@ -189,4 +206,9 @@ resource apiService 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
   }
 }
 
+// -----------------------------------------------------------------------------
+// Outputs
+// -----------------------------------------------------------------------------
+
+// The HTTPS endpoint the camera should send images to
 output endpoint string = '${apiService.properties.gatewayUrl}?accessToken=${apiService::subscription.properties.primaryKey}'
