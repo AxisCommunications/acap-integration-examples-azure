@@ -30,46 +30,34 @@ The camera will send images to the blob container via an API Management endpoint
 ## Prerequisites
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware version >=9.80.3.1)
-- Azure CLI ([install](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli))
-- Azure Bicep CLI (install with `az bicep install`)
 
 ## File structure
 
 ```
 images-to-azure-storage-account
 ├── main.bicep - Azure Bicep template describing the Azure resources
-├── policy-get.xml - Azure API Management policy document
-└── policy-post.xml - Azure API Management policy document
+└── main.json - Azure Resource Manager (ARM) template describing the Azure resources
 ```
 
 ## Instructions
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fimages-to-azure-storage-account%2Frefactor%2Fazure-deploy-button%2Fimages-to-azure-storage-account%2Fmain.json)
-
 The instructions are divided into two parts. The first part covers deploying the Azure resources and the second part covers configuring the camera.
-
-To start off, make sure to clone the repository and navigate into the example directory.
-
-```
-git clone https://github.com/AxisCommunications/acap-integration-examples-azure.git
-cd acap-integration-examples-azure/images-to-azure-storage-account
-```
 
 ### Deploy Azure resources
 
-Let's deploy the Azure resources receiving the images sent from a camera. The services are described in `main.bicep` using an [Azure Bicep template](https://docs.microsoft.com/azure/azure-resource-manager/bicep/). To keep all resources in Azure grouped together we start by creating a new resource group. To create a new resource group named `MyResourceGroup` in the `eastus` Azure region run the following command in your shell.
+Let's deploy the Azure resources receiving the images sent from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
 
-```
-az group create -n MyResourceGroup -l eastus
-```
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fimages-to-azure-storage-account%2Frefactor%2Fazure-deploy-button%2Fimages-to-azure-storage-account%2Fmain.json)
 
-Next we want to deploy the Bicep template to our resource group.
+**TODO**: Update the button to point at `main.json` on `main` branch
 
-```
-az deployment group create -g MyResourceGroup -f main.bicep -p publisherEmail=<e-mail address> --query '{Endpoint: properties.outputs.endpoint.value}' -o table
-```
+The template will require the following custom parameters.
 
-Replace `<e-mail address>` with a valid e-mail address. The e-mail address you provide will receive all system notifications sent from the API-management resource that is created. The output from the deployment command is the endpoint we will use in the next chapter when we configure the camera.
+- **Publisher Email** - E-mail address that will receive all system notifications sent from the API-management resource
+
+Once the deployment is complete, navigate to the *Outputs* tab and take note of the `endpoint` value. We will use this endpoint in the next chapter when we configure the camera.
+
+![Outputs](./assets/outputs.png)
 
 ### Configure the camera
 
