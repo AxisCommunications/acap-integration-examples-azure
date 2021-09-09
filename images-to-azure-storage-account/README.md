@@ -44,6 +44,8 @@ images-to-azure-storage-account
 
 ## Instructions
 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fimages-to-azure-storage-account%2Frefactor%2Fazure-deploy-button%2Fimages-to-azure-storage-account%2Fmain.json)
+
 The instructions are divided into two parts. The first part covers deploying the Azure resources and the second part covers configuring the camera.
 
 To start off, make sure to clone the repository and navigate into the example directory.
