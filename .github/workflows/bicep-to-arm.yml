@@ -1,0 +1,22 @@
+name: Transpile Bicep templates to ARM
+
+on:
+  push:
+    paths:
+      - '**.bicep'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: az bicep install
+      - name: Transpile all 'main.bicep' templates
+        run: find . -name 'main.bicep' -exec az bicep build --file {} \;
+      - name: Commit and push changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git diff-index --quiet HEAD || git commit -m 'chore: transpile bicep templates to arm'
+          git push
