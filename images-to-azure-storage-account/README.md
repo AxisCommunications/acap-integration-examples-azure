@@ -47,9 +47,7 @@ The instructions are divided into two parts. The first part covers deploying the
 
 Let's deploy the Azure resources receiving the images sent from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fimages-to-azure-storage-account%2Frefactor%2Fazure-deploy-button%2Fimages-to-azure-storage-account%2Fmain.json)
-
-**TODO**: Update the button to point at `main.json` on `main` branch
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fmain%2Fimages-to-azure-storage-account%2Fmain.json)
 
 The template will require the following custom parameters.
 
