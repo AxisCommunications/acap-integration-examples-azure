@@ -3,6 +3,7 @@
 # Images to Azure storage account <!-- omit in toc -->
 
 [![Build images-to-azure-storage-account](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml)
+![Ready for production](https://img.shields.io/badge/Ready%20for%20production-Yes-brightgreen)
 
 ## Table of contents <!-- omit in toc -->
 
