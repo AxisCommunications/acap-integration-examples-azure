@@ -3,6 +3,7 @@
 # Telemetry to Azure IoT Hub <!-- omit in toc -->
 
 [![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
+![Ready for production](https://img.shields.io/badge/Ready%20for%20production-Yes-brightgreen)
 
 ## Table of contents <!-- omit in toc -->
 
