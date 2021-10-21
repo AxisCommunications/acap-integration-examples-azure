@@ -1,0 +1,156 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.1008.15138",
+      "templateHash": "6446195412900170251"
+    }
+  },
+  "parameters": {
+    "objectId": {
+      "type": "string",
+      "metadata": {
+        "description": "  The object ID of your Azure Active Directory user. The object ID can be found\n  either by navigating to your user in Azure Active Directory, or by running the\n  following command in the Azure Cloud Shell:\n  'az ad signed-in-user show --query objectId --output tsv'.\n  "
+      }
+    },
+    "organizationName": {
+      "type": "string",
+      "metadata": {
+        "description": "  The name of your organization, used when generating the X.509 certificates.\n  "
+      }
+    },
+    "iotHubName": {
+      "type": "string",
+      "defaultValue": "[format('axis-telemetry-{0}', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "description": "  The name of the IoT Hub. Please note that the name must be unique, i.e. two\n  IoT Hubs in Azure cannot share the same name.\n  "
+      }
+    },
+    "deviceIdentity": {
+      "type": "string",
+      "defaultValue": "device01",
+      "metadata": {
+        "description": "  The name of the IoT device, used for authentication and access control.\n  "
+      }
+    }
+  },
+  "functions": [],
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "tenantId": "[subscription().tenantId]",
+    "contributorRoleId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Devices/IotHubs",
+      "apiVersion": "2021-03-31",
+      "name": "[parameters('iotHubName')]",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "S1",
+        "capacity": 1
+      }
+    },
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "apiVersion": "2018-11-30",
+      "name": "telemetry-to-azure-iot-hub",
+      "location": "[variables('location')]"
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2020-08-01-preview",
+      "name": "[guid(resourceGroup().id, 'contributor')]",
+      "properties": {
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')).principalId]",
+        "roleDefinitionId": "[variables('contributorRoleId')]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')]"
+      ]
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2021-06-01-preview",
+      "name": "[format('keyvault-{0}', uniqueString(resourceGroup().id))]",
+      "location": "[variables('location')]",
+      "properties": {
+        "accessPolicies": [
+          {
+            "tenantId": "[variables('tenantId')]",
+            "objectId": "[parameters('objectId')]",
+            "permissions": {
+              "certificates": [
+                "all"
+              ],
+              "secrets": [
+                "all"
+              ]
+            }
+          },
+          {
+            "tenantId": "[variables('tenantId')]",
+            "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')).principalId]",
+            "permissions": {
+              "certificates": [
+                "all"
+              ],
+              "secrets": [
+                "all"
+              ]
+            }
+          }
+        ],
+        "sku": {
+          "family": "A",
+          "name": "standard"
+        },
+        "tenantId": "[variables('tenantId')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deploymentScripts",
+      "apiVersion": "2020-10-01",
+      "name": "certificates",
+      "location": "[variables('location')]",
+      "kind": "AzureCLI",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'))]": {}
+        }
+      },
+      "properties": {
+        "azCliVersion": "2.28.0",
+        "retentionInterval": "P1D",
+        "arguments": "[format('\\\"{0}\\\" \\\"{1}\\\" \\\"{2}\\\" \\\"{3}\\\" \\\"{4}\\\"', parameters('organizationName'), resourceGroup().name, parameters('iotHubName'), parameters('deviceIdentity'), format('keyvault-{0}', uniqueString(resourceGroup().id)))]",
+        "scriptContent": "      organization_name=\"$1\"\n      resource_group_name=\"$2\"\n      iot_hub_name=\"$3\"\n      device_identity=\"$4\"\n      key_vault_name=\"$5\"\n\n      # We want to use X.509 certificates to authenticate our camera to the IoT Hub.\n      # We will create two certificates. The first is the Certificate Authority (CA)\n      # certificate, which we later on will upload to the IoT Hub. All device\n      # certificates should be generated from this CA certificate.\n      openssl genrsa -out ca.key 4096\n      openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 \\\n        -subj \"/O=$organization_name/CN=$organization_name\" -out ca.pem\n      openssl pkcs12 -inkey ca.key -in ca.pem -export -passout pass: \\\n        -out ca.pfx\n\n      # The second certificate is a device certificate which is derived from the CA\n      # certificate. This certificate should be uploaded to the camera. Please note\n      # that each device we connect to the IoT Hub requires a unique identity name.\n      openssl genrsa -out device.key 2048\n      openssl req -new -key device.key -subj \"/CN=$device_identity\" -out device.csr\n      openssl x509 -req -in device.csr -CA ca.pem -CAkey ca.key -CAcreateserial \\\n        -days 3650 -sha256 -out device.pem\n      openssl pkcs12 -inkey device.key -in device.pem -export -passout pass: \\\n        -out device.pfx\n\n      # Install the Azure IoT extension.\n      az extension add --name azure-iot\n\n      # At this point we're ready to upload the CA certificate to the IoT Hub.\n      az iot hub certificate create --hub-name \"$iot_hub_name\" --name ca \\\n        --path ca.pem --verified\n\n      # Our CA certificate is now uploaded and verified, and we are ready to\n      # create our device identity in the IoT Hub.\n      az iot hub device-identity create --resource-group \"$resource_group_name\" \\\n        --hub-name \"$iot_hub_name\" --device-id \"$device_identity\" \\\n        --auth-method x509_ca\n\n      # For future reference, upload the CA certificate and the device\n      # certificate to Azure Key Vault.\n      az keyvault certificate import --vault-name \"$key_vault_name\" --name ca \\\n        --file ca.pfx\n      az keyvault certificate import --vault-name \"$key_vault_name\" --name device \\\n        --file device.pfx\n    "
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')]",
+        "[resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName'))]",
+        "[resourceId('Microsoft.KeyVault/vaults', format('keyvault-{0}', uniqueString(resourceGroup().id)))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "host": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName'))).hostName]"
+    },
+    "username": {
+      "type": "string",
+      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', parameters('iotHubName'))).hostName, parameters('deviceIdentity'))]"
+    },
+    "clientId": {
+      "type": "string",
+      "value": "[parameters('deviceIdentity')]"
+    }
+  }
+}
