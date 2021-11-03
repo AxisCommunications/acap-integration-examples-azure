@@ -1,15 +1,14 @@
 #!/bin/bash
 set -e
 
-if [[ $# -ne 2 ]] ; then
+if [[ $# -ne 1 ]] ; then
   echo "Error: Unsupported number of arguments"
   echo
   echo "USAGE:"
-  echo "    assert-azure-deploy-uri.sh <example name> <file path>"
+  echo "    assert-azure-deploy-uri.sh <example name> "
   echo
   echo "WHERE:"
   echo "    example name    The name of the example."
-  echo "    file path       The path of the file to assert."
   echo
 
   exit 1
@@ -18,7 +17,7 @@ fi
 example_name=$1
 file_path=$2
 
-file_content=$(cat $file_path)
+file_content=$(cat README.md)
 regex='https://portal.azure.com/#create/Microsoft.Template/uri/([^)]*)'
 
 if ! [[ $file_content =~ $regex ]]; then
