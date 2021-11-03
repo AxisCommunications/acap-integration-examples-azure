@@ -16,3 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: az bicep build --file main.bicep
+      - run: ../scripts/assert-azure-deploy-uri.sh telemetry-to-azure-iot-hub
