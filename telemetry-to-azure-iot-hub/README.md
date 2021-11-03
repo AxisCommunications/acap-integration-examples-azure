@@ -49,7 +49,7 @@ The instructions are divided into two parts. The first part covers deploying the
 
 Let's deploy the Azure resources required to receive telemetry from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Ftelemetry-to-azure-iot-hub%2Frefactor%2Fazure-deploy-button%2Ftelemetry-to-azure-iot-hub%2Fmain.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fmain%2Ftelemetry-to-azure-iot-hub%2Fmain.json)
 
 The template will require the following custom parameters.
 
