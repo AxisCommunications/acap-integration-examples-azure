@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: az bicep build --file main.bicep
-      - run: ../scripts/assert-azure-deploy-uri.sh README.md https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fmain%2Ftelemetry-to-azure-iot-hub%2Fmain.json
+      - run: ../scripts/assert-azure-deploy-uri.sh telemetry-to-azure-iot-hub README.md
