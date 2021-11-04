@@ -6,7 +6,7 @@
 //   az deployment group create -g <resource group> -f main.bicep --parameters \
 //     objectId=$(az ad signed-in-user show --query objectId --output tsv) \
 //     organizationName=<organization name> \
-//     iotHubName=<IoT Hub name> \
+//     iotHubNamePrefix=<IoT Hub name prefix> \
 //     deviceIdentity=<IoT device identity>
 
 @description('''
@@ -23,10 +23,10 @@ param objectId string
 param organizationName string
 
 @description('''
-  The name of the IoT Hub. Please note that the name must be unique, i.e. two
-  IoT Hubs in Azure cannot share the same name.
+  The prefix of the IoT Hub name. A generated hash will be appended to the name,
+  guaranteeing its uniqueness on Azure.
   ''')
-param iotHubName string = 'axis-telemetry-${uniqueString(resourceGroup().id)}'
+param iotHubNamePrefix string = 'axis-telemetry'
 
 @description('''
   The name of the IoT device, used for authentication and access control.
@@ -35,13 +35,14 @@ param deviceIdentity string = 'device01'
 
 var location = resourceGroup().location
 var tenantId = subscription().tenantId
+var hash = uniqueString(resourceGroup().id)
 
 // -----------------------------------------------------------------------------
 // Azure IoT Hub receiving telemetry from the Axis camera
 // -----------------------------------------------------------------------------
 
 resource iotHub 'Microsoft.Devices/IotHubs@2021-03-31' = {
-  name: iotHubName
+  name: '${iotHubNamePrefix}-${hash}'
   location: location
   sku: {
     name: 'S1'
@@ -78,7 +79,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-prev
 // -----------------------------------------------------------------------------
 
 resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
-  name: 'keyvault-${uniqueString(resourceGroup().id)}'
+  name: 'keyvault-${hash}'
   location: location
   properties: {
     accessPolicies: [
