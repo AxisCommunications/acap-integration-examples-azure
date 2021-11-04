@@ -21,7 +21,7 @@
         "description": "  The name of your organization, used when generating the X.509 certificates.\n  "
       }
     },
-    "ioTHubNamePrefix": {
+    "iotHubNamePrefix": {
       "type": "string",
       "defaultValue": "axis-telemetry",
       "metadata": {
@@ -47,7 +47,7 @@
     {
       "type": "Microsoft.Devices/IotHubs",
       "apiVersion": "2021-03-31",
-      "name": "[format('{0}-{1}', parameters('ioTHubNamePrefix'), variables('hash'))]",
+      "name": "[format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))]",
       "location": "[variables('location')]",
       "sku": {
         "name": "S1",
@@ -130,12 +130,12 @@
       "properties": {
         "azCliVersion": "2.28.0",
         "retentionInterval": "P1D",
-        "arguments": "[format('\\\"{0}\\\" \\\"{1}\\\" \\\"{2}\\\" \\\"{3}\\\" \\\"{4}\\\"', parameters('organizationName'), resourceGroup().name, format('{0}-{1}', parameters('ioTHubNamePrefix'), variables('hash')), parameters('deviceIdentity'), format('keyvault-{0}', variables('hash')))]",
+        "arguments": "[format('\\\"{0}\\\" \\\"{1}\\\" \\\"{2}\\\" \\\"{3}\\\" \\\"{4}\\\"', parameters('organizationName'), resourceGroup().name, format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')), parameters('deviceIdentity'), format('keyvault-{0}', variables('hash')))]",
         "scriptContent": "      organization_name=\"$1\"\n      resource_group_name=\"$2\"\n      iot_hub_name=\"$3\"\n      device_identity=\"$4\"\n      key_vault_name=\"$5\"\n\n      # We want to use X.509 certificates to authenticate our camera to the IoT Hub.\n      # We will create two certificates. The first is the Certificate Authority (CA)\n      # certificate, which we later on will upload to the IoT Hub. All device\n      # certificates should be generated from this CA certificate.\n      openssl genrsa -out ca.key 4096\n      openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 \\\n        -subj \"/O=$organization_name/CN=$organization_name\" -out ca.pem\n      openssl pkcs12 -inkey ca.key -in ca.pem -export -passout pass: \\\n        -out ca.pfx\n\n      # The second certificate is a device certificate which is derived from the CA\n      # certificate. This certificate should be uploaded to the camera. Please note\n      # that each device we connect to the IoT Hub requires a unique identity name.\n      openssl genrsa -out device.key 2048\n      openssl req -new -key device.key -subj \"/CN=$device_identity\" -out device.csr\n      openssl x509 -req -in device.csr -CA ca.pem -CAkey ca.key -CAcreateserial \\\n        -days 3650 -sha256 -out device.pem\n      openssl pkcs12 -inkey device.key -in device.pem -export -passout pass: \\\n        -out device.pfx\n\n      # Install the Azure IoT extension.\n      az extension add --name azure-iot\n\n      # At this point we're ready to upload the CA certificate to the IoT Hub.\n      az iot hub certificate create --hub-name \"$iot_hub_name\" --name ca \\\n        --path ca.pem --verified\n\n      # Our CA certificate is now uploaded and verified, and we are ready to\n      # create our device identity in the IoT Hub.\n      az iot hub device-identity create --resource-group \"$resource_group_name\" \\\n        --hub-name \"$iot_hub_name\" --device-id \"$device_identity\" \\\n        --auth-method x509_ca\n\n      # For future reference, upload the CA certificate and the device\n      # certificate to Azure Key Vault.\n      az keyvault certificate import --vault-name \"$key_vault_name\" --name ca \\\n        --file ca.pfx\n      az keyvault certificate import --vault-name \"$key_vault_name\" --name device \\\n        --file device.pfx\n    "
       },
       "dependsOn": [
         "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')]",
-        "[resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('ioTHubNamePrefix'), variables('hash')))]",
+        "[resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')))]",
         "[resourceId('Microsoft.KeyVault/vaults', format('keyvault-{0}', variables('hash')))]"
       ]
     }
@@ -143,11 +143,11 @@
   "outputs": {
     "host": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('ioTHubNamePrefix'), variables('hash')))).hostName]"
+      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')))).hostName]"
     },
     "username": {
       "type": "string",
-      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('ioTHubNamePrefix'), variables('hash')))).hostName, parameters('deviceIdentity'))]"
+      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')))).hostName, parameters('deviceIdentity'))]"
     },
     "clientId": {
       "type": "string",
