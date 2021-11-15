@@ -48,7 +48,7 @@ If you are unable to acquire a computer on-premises, you can always provision a 
 
 ## Prerequisites
 
-> This example does currently not work on macOS with Azure CLI v2.30.0. Please downgrade to v2.29.0 or stay tuned for updates regarding the issue.
+> This example does currently not work on macOS with Azure CLI v2.30.0. Please downgrade to v2.29.0 or subscribe to notifications on issue [#15](https://github.com/AxisCommunications/acap-integration-examples-azure/issues/15).
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware >=10.4)
 - Azure CLI v2.29.0 or above ([install](https://docs.microsoft.com/cli/azure/install-azure-cli))
@@ -242,7 +242,7 @@ scp -p cert/ca.pem \
    $username@$edge_device_hostname:/home/$username
 ```
 
-With the certificates successfully uploaded, please proceed with connecting to the Azure IoT Edge gateway using ssh and [install Azure IoT Edge](https://docs.microsoft.com/azure/iot-edge/how-to-provision-single-device-linux-x509#install-iot-edge). If you encounter any issues, please make sure to read through the [Troubleshooting](#troubleshooting) section.
+With the certificates successfully uploaded, please proceed with connecting to the Azure IoT Edge gateway using ssh and [install Azure IoT Edge](https://docs.microsoft.com/azure/iot-edge/how-to-provision-single-device-linux-x509#install-iot-edge). If you encounter any issues, please make sure to read the [Troubleshooting](#troubleshooting) section.
 
 After a successful installation the configuration file `/etc/aziot/config.toml` will look like this, given that your Azure IoT Hub hostname is `example.azure-devices.net`, your IoT Edge gateway hostname is `azureiotedgedevice`, and the computer username is `pi`.
 
@@ -304,7 +304,7 @@ At this point the IoT Edge runtime is configured to accept MQTT connections from
 
 ### Configuring the camera
 
-Now that the resources in Azure are ready to accept telemetry, let's continue with configuring the camera to send events.
+Now that the edge gateway is ready to accept telemetry, let's continue with configuring the camera to send events.
 
 We will begin by uploading our device certificate and the root CA certificate to the camera. Start by navigating to the camera using your preferred web browser. To add a device certificate, follow the steps below.
 
@@ -363,7 +363,7 @@ Finally select pulses to be the event type the camera sends to the Azure IoT Hub
    - **Condition**: `Pulse`
 1. Click on *Save*
 
-At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub. You can monitor events by using the Azure CLI.
+At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub via the edge gateway. You can monitor events by using the Azure CLI.
 
 ```bash
 az iot hub monitor-events --hub-name <iot hub name>
