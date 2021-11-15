@@ -57,8 +57,8 @@ if [[ ! -f "$ca_key_path" || ! -f "$ca_cert_path" ]] ; then
   echo "Root CA certificate does not exist in local directory, creating it..."
   openssl genrsa -out $ca_key_path 4096
   openssl req -x509 -new -nodes -key $ca_key_path -sha256 -days $valid_for_days \
-  -subj "/O=$organization_name/CN=$organization_name" -config openssl.cnf -extensions "v3_ca" \
-  -out $ca_cert_path
+    -subj "/O=$organization_name/CN=$organization_name" -config openssl.cnf -extensions "v3_ca" \
+    -out $ca_cert_path
 fi
 
 # The second certificate is derived from the root CA certificate. It's for Azure
@@ -120,7 +120,7 @@ echo "The following certificates have been created."
 echo
 echo "Root Certificate Authority (CA) certificate"
 echo "--------------------------------------------------------------------------"
-echo "All other certificates we generate are rooted in this certificate, and"
+echo "All other certificates we generated are rooted in this certificate, and"
 echo "later on in the example we will upload this certificate to the Azure IoT"
 echo "Hub and to the Azure IoT Edge gateway."
 echo

@@ -73,7 +73,7 @@ if [[ $(az iot hub list --query "[?name=='$iot_hub_name' && resourcegroup=='$res
     --output none
 fi
 
-# The first certificate to upload to the IoT Hub is the root CA certificate.
+# With the IoT Hub created, let's upload the root CA certificate.
 echo "Checking if root CA certificate is uploaded to IoT Hub..."
 if [[ $(az iot hub certificate list --hub-name "$iot_hub_name" --query "value[?name=='$ca_cert_name' && properties.thumbprint=='$local_ca_certificate_thumbprint'] | length(@)") -ne 1  ]] ; then
   echo "IoT Hub root CA certificate does not exist, uploading local root CA certificate..."
