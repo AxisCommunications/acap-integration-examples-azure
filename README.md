@@ -18,6 +18,8 @@ If you find yourself wishing there was another example more relevant to your use
 
 - [images-to-azure-storage-account](./images-to-azure-storage-account/)
   - This example covers sending images from a camera to a storage account in Azure
+- [telemetry-to-azure-iot-edge](./telemetry-to-azure-iot-edge/)
+  - This example covers sending telemetry from a camera to IoT Edge on-premises
 - [telemetry-to-azure-iot-hub](./telemetry-to-azure-iot-hub/)
   - This example covers sending telemetry from a camera to an IoT Hub in Azure
 

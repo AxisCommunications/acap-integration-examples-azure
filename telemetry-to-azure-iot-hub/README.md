@@ -3,7 +3,7 @@
 # Telemetry to Azure IoT Hub <!-- omit in toc -->
 
 [![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
-![Ready for production](https://img.shields.io/badge/Ready%20for%20production-Yes-brightgreen)
+![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
 ## Table of contents <!-- omit in toc -->
 
@@ -27,7 +27,7 @@ The application consists of the following Azure resources.
 - An IoT Hub
 - A Key Vault
 
-An Axis camera has an internal MQTT client that will connect to the IoT Hub in Azure. The camera authenticates to the IoT Hub using an X.509 certificate.
+An Axis camera has an internal MQTT client that will connect to the IoT Hub in Azure. The camera authenticates to the IoT Hub using a X.509 certificate.
 
 ## Prerequisites
 
@@ -37,8 +37,8 @@ An Axis camera has an internal MQTT client that will connect to the IoT Hub in A
 
 ```
 telemetry-to-azure-iot-hub
-├── main.bicep - Azure Bicep template describing the Azure resources
-└── main.json - Azure Resource Manager (ARM) template describing the Azure resources
+├── main.bicep    Azure Bicep template describing the Azure resources.
+└── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
 ```
 
 ## Instructions
@@ -46,6 +46,10 @@ telemetry-to-azure-iot-hub
 The instructions are divided into two parts. The first part covers deploying the Azure resources and the second part covers configuring the camera.
 
 ### Deploy Azure resources
+
+> Disclaimer: The generated X.509 certificates are valid for 365 days, which means that a solution deployed with these certificates will be operational for about a year. To remain operational longer that that, update the script to generate certificates with a longer validity, or re-provision the solution after a year when the certificates have expired.
+
+> Disclaimer: The generated X.509 certificates are self-signed. To root the certificates in a trusted root Certificate Authority (CA), please contact a trusted commercial certificate authority like Baltimore, Verisign, or DigiCert.
 
 Let's deploy the Azure resources required to receive telemetry from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
 

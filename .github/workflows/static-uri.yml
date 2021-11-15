@@ -1,0 +1,26 @@
+name: Assert static URI's referenced from announcements
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        uri: [
+            "https://github.com/AxisCommunications/acap-integration-examples-azure/tree/main/telemetry-to-azure-iot-edge"
+          ]
+    steps:
+      - env:
+          URI: ${{ matrix.uri }}
+        run: |
+          status_code=$(curl -s -o /dev/null -I -w "%{http_code}" "$URI")
+          if [[ "$status_code" != "200" ]]; then
+            echo "got $status_code, want 200"
+            exit 1
+          fi
+

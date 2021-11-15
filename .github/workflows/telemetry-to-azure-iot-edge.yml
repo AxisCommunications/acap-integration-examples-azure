@@ -1,0 +1,20 @@
+name: Build telemetry-to-azure-iot-edge
+
+on:
+  push:
+    paths:
+      - .github/workflows/telemetry-to-azure-iot-edge.yml
+      - telemetry-to-azure-iot-edge/**
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: static analysis
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: telemetry-to-azure-iot-edge
+    steps:
+      - uses: actions/checkout@v2
+      - run: shellcheck ./create-certificates.sh
+      - run: shellcheck ./create-cloud-resources.sh
