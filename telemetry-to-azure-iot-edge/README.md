@@ -48,10 +48,8 @@ If you are unable to acquire a computer on-premises, you can always provision a 
 
 ## Prerequisites
 
-> This example does currently not work on macOS with Azure CLI v2.30.0. Please downgrade to v2.29.0 or subscribe to notifications on issue [#15](https://github.com/AxisCommunications/acap-integration-examples-azure/issues/15).
-
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware >=10.4)
-- Azure CLI v2.29.0 or above ([install](https://docs.microsoft.com/cli/azure/install-azure-cli))
+- Azure CLI v2.30.0 or above ([install](https://docs.microsoft.com/cli/azure/install-azure-cli))
 - Azure CLI IoT extension (add with `az extension add --name azure-iot`)
 - OpenSSL ([install](https://www.openssl.org/))
 - ssh (Secure Shell)
