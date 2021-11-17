@@ -60,11 +60,11 @@ If you are unable to acquire a computer on-premises, you can always provision a 
 ```
 telemetry-to-azure-iot-edge
 ├── create-certificates.sh         Bash script that creates X.509 certificates for secure
-|                                  authentication and communication between camera, Azure IoT Edge
-|                                  and Azure IoT Hub.
+│                                  authentication and communication between camera, Azure IoT Edge
+│                                  and Azure IoT Hub.
 ├── create-cloud-resources.sh      Bash script that creates Azure resources.
 ├── edge-gateway.deployment.json   Azure IoT Edge gateway deployment manifest that will deploy the
-|                                  IoT Edge agent module and the IoT Edge hub module.
+│                                  IoT Edge agent module and the IoT Edge hub module.
 └── openssl.cnf                    Configuration file for OpenSSL.
 ```
 
