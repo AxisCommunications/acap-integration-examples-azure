@@ -10,6 +10,7 @@
 ## Table of contents <!-- omit in toc -->
 
 - [Overview](#overview)
+- [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
@@ -45,6 +46,12 @@ Having a downstream device, i.e. the Axis camera, connect to an Azure IoT Edge g
 - With horizontal compute, spreading AI processing between Axis cameras and the edge gateway creates flexible and cost competitive solutions. The cameras can run the initial processing (e.g., vehicle or motion detection) and, from those inferences, decide which frames to further post-process. Dedicated models can then be run on the edge gateway, providing added flexibility and value-producing insights.
 
 If you are unable to acquire a computer on-premises, you can always provision a [virtual machine on Azure](https://azure.microsoft.com/services/virtual-machines).
+
+## Mentions
+
+For more information regarding the relevance of this sample, please see the following articles.
+
+- [Microsoft Tech Community: Build Intelligent Video Solutions with Axis Cameras and Azure Video Analyzer](https://techcommunity.microsoft.com/t5/azure-video-analyzer-blog/build-intelligent-video-solutions-with-axis-cameras-and-azure/ba-p/2967607)
 
 ## Prerequisites
 
