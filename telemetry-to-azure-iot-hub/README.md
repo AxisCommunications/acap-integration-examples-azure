@@ -135,6 +135,35 @@ At this point the camera is sending a new event every 5 seconds to the Azure IoT
 az iot hub monitor-events --hub-name <iot hub name>
 ```
 
+### Add additional IoT devices
+
+To add additional IoT devices to your deployed application, please open [Azure Portal](https://portal.azure.com) in a web browser and navigate to the deployed IoT Hub. In the IoT Hub, select *Devices* under *Device management* in the left pane, and then click the *Add Device* toolbar button.
+
+Assuming that the new device will be named `device02`, enter the following information and then click the *Save* button.
+
+- **Device ID**: `device02`
+- **Authentication type**: `X.509 CA Signed`
+
+With the new device created, navigate to your Key Vault instance and select *Certificates* under *Settings* in the left pane. Click the `ca` certificate and download it in the same way as you previously downloaded the `device` certificate.
+
+With the CA certificate downloaded and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. You will at this point need the have [OpenSSL](https://www.openssl.org/) installed on your computer.
+
+```
+$ device_identity=device02
+$ ca_path=keyvault.pfx
+$ openssl genrsa -out "$device_identity.key" 2048
+$ openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
+   -out "$device_identity.csr"
+$ openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
+$ openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
+   -days 365 -sha256 -out "$device_identity.pem"
+$ openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
+   -passout pass: -out "$device_identity.pfx"
+```
+
+With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and configure the camera using the same steps as the first camera in the application.
+
+
 ## Cleanup
 
 To delete all deployed resources in Azure, run the following CLI command
