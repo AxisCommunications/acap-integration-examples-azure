@@ -146,7 +146,7 @@ Assuming that the new device will be named `device02`, enter the following infor
 
 With the new device created, navigate to your Key Vault instance and select *Certificates* under *Settings* in the left pane. Click the `ca` certificate and download it in the same way as you previously downloaded the `device` certificate.
 
-With the CA certificate downloaded and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. You will at this point need the have [OpenSSL](https://www.openssl.org/) installed on your computer.
+With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need the have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
 ```
 $ device_identity=device02
