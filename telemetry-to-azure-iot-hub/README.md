@@ -161,7 +161,7 @@ $ openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -expor
    -passout pass: -out "$device_identity.pfx"
 ```
 
-With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and configure the camera using the same steps as the first camera in the application.
+With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and then configure the camera using the same steps as the first camera in the application.
 
 
 ## Cleanup
