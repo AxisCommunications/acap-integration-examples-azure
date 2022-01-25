@@ -66,7 +66,7 @@ Once the deployment is complete, navigate to the *Outputs* tab and take note of 
 
 ![Outputs](./assets/outputs.png)
 
-### Configuring the camera
+### Configure the camera
 
 Now that the resources in Azure are ready to accept telemetry, let's continue with configuring the camera to send events.
 
