@@ -307,7 +307,7 @@ sudo iotedge check
 
 At this point the IoT Edge runtime is configured to accept MQTT connections from a camera.
 
-### Configuring the camera
+### Configure the camera
 
 Now that the edge gateway is ready to accept telemetry, let's continue with configuring the camera to send events.
 
