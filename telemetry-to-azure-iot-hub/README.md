@@ -149,14 +149,27 @@ With the new device created, navigate to your Key Vault instance and select *Cer
 With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
 ```
+# Define a variable with the name of the new device
 device_identity=device02
+
+# Define a variable pointing at the downloaded CA certificate
 ca_path=keyvault.pfx
+
+# Generate a new private key
 openssl genrsa -out "$device_identity.key" 2048
+
+# Generate a new certificate signing request (CSR)
 openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
    -out "$device_identity.csr"
+
+# Convert the CA certificate from PFX format to PEM format
 openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
+
+# Create the new device certificate
 openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
    -days 365 -sha256 -out "$device_identity.pem"
+
+# Convert the device certificate from PEM format to PFX format
 openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
    -passout pass: -out "$device_identity.pfx"
 ```
