@@ -146,18 +146,18 @@ Assuming that the new device will be named `device02`, enter the following infor
 
 With the new device created, navigate to your Key Vault instance and select *Certificates* under *Settings* in the left pane. Click the `ca` certificate and download it in the same way as you previously downloaded the `device` certificate.
 
-With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need the have [OpenSSL](https://www.openssl.org/) installed on your computer.
+With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
 ```
-$ device_identity=device02
-$ ca_path=keyvault.pfx
-$ openssl genrsa -out "$device_identity.key" 2048
-$ openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
+device_identity=device02
+ca_path=keyvault.pfx
+openssl genrsa -out "$device_identity.key" 2048
+openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
    -out "$device_identity.csr"
-$ openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
-$ openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
+openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
+openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
    -days 365 -sha256 -out "$device_identity.pem"
-$ openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
+openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
    -passout pass: -out "$device_identity.pfx"
 ```
 
