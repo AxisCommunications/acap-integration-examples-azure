@@ -162,8 +162,8 @@ openssl genrsa -out "$device_identity.key" 2048
 openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
    -out "$device_identity.csr"
 
-# Convert the CA certificate from PFX format to PEM format (press enter when
-# asked for password)
+# Convert the downloaded CA certificate from PFX format to PEM format (press
+# enter when asked for password)
 openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
 
 # Create the new device certificate
