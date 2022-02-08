@@ -56,7 +56,7 @@ For more information regarding the relevance of this sample, please see the foll
 ## Prerequisites
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware >=10.4)
-- Azure CLI v2.30.0 or above ([install](https://docs.microsoft.com/cli/azure/install-azure-cli))
+- Azure CLI v2.30.0 or higher ([install](https://docs.microsoft.com/cli/azure/install-azure-cli))
 - Azure CLI IoT extension (add with `az extension add --name azure-iot`)
 - OpenSSL ([install](https://www.openssl.org/))
 - ssh (Secure Shell)
