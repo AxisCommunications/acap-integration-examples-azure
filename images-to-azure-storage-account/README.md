@@ -95,11 +95,11 @@ Now let's navigate to the *Rules* tab. Here we'll finally create a rule that com
 
 Click the *Save* button.
 
-At this point the rule will become active and send a snapshot to Azure storage every minute.
+At this point the rule will become active and send a snapshot to Azure storage every minute. Navigate to your storage account in Azure Portal, select the container `images`, and within that container you will find the uploaded images.
 
 ## Cleanup
 
-To delete the deployed Azure services, including all images in the storage account, either use the Azure portal to delete the resource group, or run the following CLI command.
+To delete the deployed Azure services, including all images in the storage account, either use the Azure Portal to delete the resource group, or run the following CLI command.
 
 ```
 az group delete --name <resource group name>
