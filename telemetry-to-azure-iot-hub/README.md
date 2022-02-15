@@ -1,18 +1,24 @@
 *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# Telemetry to Azure IoT Hub <!-- omit in toc -->
+<!-- omit in toc -->
+# Telemetry to Azure IoT Hub
 
 [![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
-## Table of contents <!-- omit in toc -->
+<!-- omit in toc -->
+## Table of contents
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
+  - [Deploy Azure resources](#deploy-azure-resources)
+  - [Configure the camera](#configure-the-camera)
+  - [Add additional IoT devices](#add-additional-iot-devices)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
+  - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
 - [License](#license)
 
 ## Overview

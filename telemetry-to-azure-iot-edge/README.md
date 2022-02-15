@@ -1,22 +1,33 @@
 *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# Telemetry to Azure IoT Edge <!-- omit in toc -->
+<!-- omit in toc -->
+# Telemetry to Azure IoT Edge
 
 [![Build telemetry-to-azure-iot-edge](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-edge.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-edge.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-No-red)
 
 > Please note that this example is intended for proof-of-concepts and not for production. Efforts into making it production ready are under way, please stay tuned for updates.
 
-## Table of contents <!-- omit in toc -->
+<!-- omit in toc -->
+## Table of contents
 
 - [Overview](#overview)
 - [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
+  - [Create X.509 certificates](#create-x509-certificates)
+  - [Deploy Azure resources](#deploy-azure-resources)
+  - [Install Azure IoT Edge](#install-azure-iot-edge)
+  - [Configure the camera](#configure-the-camera)
 - [Go to production](#go-to-production)
+  - [Securely store certificates on the gateway](#securely-store-certificates-on-the-gateway)
+  - [Create private certificate keys on the devices](#create-private-certificate-keys-on-the-devices)
+  - [Zero-touch provisioning](#zero-touch-provisioning)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
+  - [Azure IoT Edge cannot read X.509 certificates](#azure-iot-edge-cannot-read-x509-certificates)
+  - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
 - [License](#license)
 
 ## Overview
