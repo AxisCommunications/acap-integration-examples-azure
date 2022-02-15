@@ -27,7 +27,7 @@ fi
 actual_uri="${BASH_REMATCH[1]}"
 expected_uri="https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fmain%2F$example_name%2Fmain.json"
 
-if [[ $actual_uri != $expected_uri ]]; then
+if [[ $actual_uri != "$expected_uri" ]]; then
    echo "The expected ARM template URI was not found."
    exit 1
 fi
