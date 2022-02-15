@@ -12,3 +12,5 @@ jobs:
         with:
           fetch-depth: 0
       - uses: github/super-linter/slim@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
