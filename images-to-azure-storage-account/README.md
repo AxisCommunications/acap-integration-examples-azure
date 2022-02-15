@@ -50,7 +50,7 @@ Let's deploy the Azure resources receiving the images sent from a camera. Naviga
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAxisCommunications%2Facap-integration-examples-azure%2Fmain%2Fimages-to-azure-storage-account%2Fmain.json)
 
-The template will require the following custom parameters.
+The template, `main.bicep`, is written in [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/), a language created by Microsoft to define infrastructure as code. It will require you to set the following custom parameters.
 
 - **Publisher Email** - E-mail address that will receive all system notifications sent from the API-management resource
 
