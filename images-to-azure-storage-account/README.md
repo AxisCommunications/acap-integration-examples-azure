@@ -1,18 +1,24 @@
 *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# Images to Azure storage account <!-- omit in toc -->
+<!-- omit in toc -->
+# Images to Azure storage account
 
 [![Build images-to-azure-storage-account](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
-## Table of contents <!-- omit in toc -->
+<!-- omit in toc -->
+## Table of contents
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
+  - [Deploy Azure resources](#deploy-azure-resources)
+  - [Configure the camera](#configure-the-camera)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
+  - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
+  - [ICU package error when running this example on Ubuntu](#icu-package-error-when-running-this-example-on-ubuntu)
 - [License](#license)
 
 ## Overview
