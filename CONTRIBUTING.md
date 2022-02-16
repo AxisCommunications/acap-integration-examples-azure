@@ -92,26 +92,26 @@ Enhancement suggestions are tracked as [GitHub issues][issues].
 Start by [forking the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo), i.e. copying the repository to your account to grant you write access. Continue with cloning the forked repository to your local machine.
 
 ```bash
-$ git clone https://github.com/<your username>/acap-integration-examples-azure.git
+git clone https://github.com/<your username>/acap-integration-examples-azure.git
 ```
 
 Navigate into the cloned directory and create a new branch.
 
 ```bash
-$ cd acap-integration-examples-azure
-$ git switch -c <branch name>
+cd acap-integration-examples-azure
+git switch -c <branch name>
 ```
 
 Update the code according to your requirements, and commit the changes using the [conventional commits](https://www.conventionalcommits.org) message style.
 
 ```bash
-$ git commit -a -m 'Follow the conventional commit messages style to write this message'
+git commit -a -m 'Follow the conventional commit messages style to write this message'
 ```
 
 Continue with pushing the local commits to GitHub.
 
 ```bash
-$ git push origin <branch name>
+git push origin <branch name>
 ```
 
 Before opening a Pull Request (PR), please consider the following guidelines.
