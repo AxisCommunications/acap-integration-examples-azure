@@ -89,7 +89,7 @@ Enhancement suggestions are tracked as [GitHub issues][issues].
 
 ### Your first code contribution
 
-Start by [forking the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo), i.e. copying the repository to a domain where you have write access. Continue with cloning the repository to your local machine.
+Start by [forking the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo), i.e. copying the repository to your account to grant you write access. Continue with cloning the forked repository to your local machine.
 
 ```bash
 $ git clone https://github.com/<your username>/acap-integration-examples-azure.git
