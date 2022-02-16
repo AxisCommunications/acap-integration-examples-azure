@@ -24,7 +24,7 @@ Before you ask a question, it is best to search for existing [issues][issues] an
 
 If you then still feel the need to ask a question and need clarification, we recommend the following:
 
-- Create a [discussion][discussion_new].
+- Create a [discussion][discussions_new].
 - Provide as much context as you can about what you're running into.
 - Provide project and platform versions, depending on what seems relevant.
 
