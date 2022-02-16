@@ -36,7 +36,7 @@ We will then take care of the discussion as soon as possible.
 
 #### Before submitting a bug report
 
-A good bug report shouldn't leave others needing to chase you up for more information. Therefore, we ask you to investigate carefully, collect information and describe the issue in detail in your report. Please complete the following steps in advance to help us fix any potential bug as fast as possible.
+A good bug report shouldn't leave others needing to chase you up for more information. Therefore, we ask you to investigate carefully, collect information and describe the issue in detail in your report. Please complete the following steps in advance to help us fix any potential bug as fast as possible:
 
 - Make sure that you are using the latest version.
 - Determine if your bug is really a bug and not an error on your side e.g. using incompatible environment components/versions.
@@ -91,30 +91,30 @@ Enhancement suggestions are tracked as [GitHub issues][issues].
 
 Start by [forking the repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo), i.e. copying the repository to your account to grant you write access. Continue with cloning the forked repository to your local machine.
 
-```bash
+```sh
 git clone https://github.com/<your username>/acap-integration-examples-azure.git
 ```
 
-Navigate into the cloned directory and create a new branch.
+Navigate into the cloned directory and create a new branch:
 
-```bash
+```sh
 cd acap-integration-examples-azure
 git switch -c <branch name>
 ```
 
-Update the code according to your requirements, and commit the changes using the [conventional commits](https://www.conventionalcommits.org) message style.
+Update the code according to your requirements, and commit the changes using the [conventional commits](https://www.conventionalcommits.org) message style:
 
-```bash
+```sh
 git commit -a -m 'Follow the conventional commit messages style to write this message'
 ```
 
-Continue with pushing the local commits to GitHub.
+Continue with pushing the local commits to GitHub:
 
-```bash
+```sh
 git push origin <branch name>
 ```
 
-Before opening a Pull Request (PR), please consider the following guidelines.
+Before opening a Pull Request (PR), please consider the following guidelines:
 
 - Please make sure that the code builds perfectly fine on your local system.
 - The PR will have to meet the code standard already available in the repository.
