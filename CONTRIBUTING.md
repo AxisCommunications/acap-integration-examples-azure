@@ -57,7 +57,7 @@ We use GitHub issues to track bugs and errors. If you run into an issue with the
 
 - Open an [issue][issues_new].
 - Explain the behavior you would expect and the actual behavior.
-- Please provide as much context as possible and describe the *reproduction steps* that someone else can follow to recreate the issue on their own. This usually includes your code. For good bug reports you should isolate the problem and create a reduced test case.
+- Please provide as much context as possible and describe the *reproduction steps* that someone else can follow to recreate the issue on their own.
 - Provide the information you collected in the previous section.
 
 Once it's filed:
