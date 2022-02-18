@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.4.1008.15138",
-      "templateHash": "6265939034325973192"
+      "version": "0.4.1272.37030",
+      "templateHash": "15233226151138971912"
     }
   },
   "parameters": {
@@ -16,7 +16,6 @@
       }
     }
   },
-  "functions": [],
   "variables": {
     "commonName": "[format('image-upload-{0}', uniqueString(resourceGroup().id))]",
     "storageBlobDataContributorRoleId": "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
