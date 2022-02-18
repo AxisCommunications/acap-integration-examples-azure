@@ -4,6 +4,7 @@
 # Telemetry to Azure IoT Hub
 
 [![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
+[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
 <!-- omit in toc -->
