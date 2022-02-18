@@ -1,2 +1,7 @@
-MD013: false  # Line length
-MD041: false  # First line in a file should be a top-level heading
+# Line length
+# Reasoning: Most editors wrap long lines, and long lines doesn't affect rendered Markdown
+MD013: false
+
+# First line in a file should be a top-level heading
+# Reasoning: We use a copyright header
+MD041: false
