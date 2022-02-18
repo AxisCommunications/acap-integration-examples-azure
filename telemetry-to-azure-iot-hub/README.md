@@ -41,6 +41,7 @@ An Axis camera has an internal MQTT client that will connect to the IoT Hub in A
 
 ## File structure
 
+<!-- markdownlint-disable MD040 -->
 ```
 telemetry-to-azure-iot-hub
 ├── main.bicep    Azure Bicep template describing the Azure resources.
@@ -55,6 +56,7 @@ The instructions are divided into two parts. The first part covers deploying the
 
 > Disclaimer: The generated X.509 certificates are valid for 365 days, which means that a solution deployed with these certificates will be operational for about a year. To remain operational longer that that, update the script to generate certificates with a longer validity, or re-provision the solution after a year when the certificates have expired.
 
+<!-- markdownlint-disable MD028 -->
 > Disclaimer: The generated X.509 certificates are self-signed. To root the certificates in a trusted root Certificate Authority (CA), please contact a trusted commercial certificate authority like Baltimore, Verisign, or DigiCert.
 
 Let's deploy the Azure resources required to receive telemetry from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
@@ -137,7 +139,7 @@ Finally select pulses to be the event type the camera sends to the Azure IoT Hub
 
 At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub. You can monitor events by using the Azure CLI.
 
-```bash
+```sh
 az iot hub monitor-events --hub-name <iot hub name>
 ```
 
@@ -154,7 +156,7 @@ With the new Azure IoT device created, navigate to your Key Vault instance and s
 
 With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
-```
+```sh
 # Define a variable with the name of the new device
 device_identity=device02
 
@@ -183,12 +185,11 @@ openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export 
 
 With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and then configure the camera using the same steps as the first camera in the application.
 
-
 ## Cleanup
 
 To delete all deployed resources in Azure, run the following CLI command
 
-```bash
+```sh
 az group delete --name <resource group name>
 ```
 

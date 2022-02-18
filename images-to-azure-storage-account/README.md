@@ -39,6 +39,7 @@ The camera will send images to the blob container via an API Management endpoint
 
 ## File structure
 
+<!-- markdownlint-disable MD040 -->
 ```
 images-to-azure-storage-account
 ├── main.bicep    Azure Bicep template describing the Azure resources.
@@ -106,7 +107,7 @@ At this point the rule will become active and send a snapshot to Azure storage e
 
 To delete the deployed Azure services, including all images in the storage account, either use the Azure Portal to delete the resource group, or run the following CLI command.
 
-```
+```sh
 az group delete --name <resource group name>
 ```
 

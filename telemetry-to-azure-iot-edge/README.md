@@ -75,6 +75,7 @@ For more information regarding the relevance of this sample, please see the foll
 
 ## File structure
 
+<!-- markdownlint-disable MD040 -->
 ```
 telemetry-to-azure-iot-edge
 ├── create-certificates.sh         Bash script that creates X.509 certificates for secure
@@ -92,7 +93,7 @@ The instructions are divided into three parts. The first part covers generating 
 
 To start off, make sure to clone the repository and navigate into the example directory.
 
-```bash
+```sh
 git clone https://github.com/AxisCommunications/acap-integration-examples-azure.git
 cd acap-integration-examples-azure/telemetry-to-azure-iot-edge
 ```
@@ -103,6 +104,7 @@ We start off with creating the required [X.509 certificates](https://docs.micros
 
 > Disclaimer: The generated X.509 certificates are valid for 365 days, which means that a solution deployed with these certificates will be operational for about a year. To remain operational longer that that, update the script to generate certificates with a longer validity, or re-provision the solution after expiration.
 
+<!-- markdownlint-disable MD028 -->
 > Disclaimer: The generated X.509 certificates are self-signed. To root the certificates in a trusted root Certificate Authority (CA), please contact a trusted commercial certificate authority like Baltimore, Verisign, or DigiCert.
 
 Create the certificates by running the bash script `create-certificates.sh` with the following positional arguments.
@@ -113,6 +115,7 @@ Create the certificates by running the bash script `create-certificates.sh` with
 
 The following output indicate that all certificates have been created successfully (for brevity, output from OpenSSL commands are not shown).
 
+<!-- markdownlint-disable MD040 -->
 ```
 $ ./create-certificates.sh "My organization" azureiotedgedevice device01
 > Checking local directory for root CA certificate...
@@ -176,13 +179,13 @@ $ ./create-certificates.sh "My organization" azureiotedgedevice device01
 
 With the certificates created we are ready to deploy the required Azure resources. But before we do, let's verify the currently selected Azure subscription.
 
-```bash
+```sh
 az account show --query name --output tsv
 ```
 
 To change into a new subscription, please run the following command.
 
-```bash
+```sh
 az account set --subscription <name or id of subscription>
 ```
 
@@ -196,6 +199,7 @@ With the correct subscription selected, call the bash script `create-cloud-resou
 
 The following output indicate that all resources have been created successfully.
 
+<!-- markdownlint-disable MD040 -->
 ```
 $ ./create-cloud-resources.sh MyResourceGroup eastus my-iot-hub azureiotedgedevice device01
 > Creating resource group 'MyResourceGroup' in 'eastus' if it does not exist...
@@ -234,7 +238,7 @@ IoT Edge will be installed on a computer, also known as the gateway, on-premises
 
 With the hostname specified when creating the certificates, and with a valid username on the Azure IoT Edge gateway, run the following commands to copy the certificates.
 
-```bash
+```sh
 edge_device_hostname=<edge gateway hostname>
 username=<username>
 scp -p cert/ca.pem \
@@ -247,7 +251,7 @@ scp -p cert/ca.pem \
 
 As an example, given that the hostname is `azureiotedgedevice` and the username is `pi`, the commands would look like this.
 
-```bash
+```sh
 edge_device_hostname=azureiotedgedevice
 username=pi
 scp -p cert/ca.pem \
@@ -262,6 +266,7 @@ With the certificates successfully uploaded, please proceed with connecting to t
 
 After a successful installation the configuration file `/etc/aziot/config.toml` will look like this, given that your Azure IoT Hub hostname is `example.azure-devices.net`, your IoT Edge gateway hostname is `azureiotedgedevice`, and the computer username is `pi`.
 
+<!-- markdownlint-disable MD040 -->
 ```
 # ==============================================================================
 # Hostname
@@ -286,6 +291,7 @@ With Azure IoT Edge installed and successfully connected to the Azure IoT Hub we
 
 In `/etc/aziot/config.toml`, please update the `trust_bundle_cert` parameter to reference the root Certificate Authority (CA) certificate, and the `[edge_ca]` section to reference the intermediate Certificate Authority (CA) certificate. Given that your IoT Edge gateway hostname is `azureiotedgedevice` and the computer username is `pi`, the relevant parts of the configuration file would look like this.
 
+<!-- markdownlint-disable MD040 -->
 ```
 # ==============================================================================
 # Trust bundle cert
@@ -311,7 +317,7 @@ pk = "file:///home/pi/azureiotedgedevice_ca.key"
 
 Apply the new configuration and verify the status of Azure IoT Edge by running the following commands.
 
-```bash
+```sh
 sudo iotedge config apply
 sudo iotedge check
 ```
@@ -381,7 +387,7 @@ Finally select pulses to be the event type the camera sends to the Azure IoT Hub
 
 At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub via the edge gateway. You can monitor events by using the Azure CLI.
 
-```bash
+```sh
 az iot hub monitor-events --hub-name <iot hub name>
 ```
 
@@ -407,7 +413,7 @@ Depending on the number of gateways and Axis cameras, scale might be an issue. M
 
 To delete all deployed resources in Azure, run the following CLI command
 
-```bash
+```sh
 az group delete --name <resource group name>
 ```
 
@@ -421,6 +427,7 @@ If you find that the command `sudo iotedge system status` is indicating that ser
 
 Navigate to the directory where the X.509 certificate files are stored. Let's assume that the certificates are stored in the user's home directory, e.g. `/home/pi`. In that directory, issue the following command.
 
+<!-- markdownlint-disable MD040 -->
 ```
 $ ls -la
 > -rw-r-----  1 pi   pi   3243 Oct 10 01:00 azureiotedgedevice_ca.key
@@ -434,7 +441,7 @@ The output above is an indication of the problem. The file permissions only allo
 
 In the same terminal, issue the following commands to allow all users on the computer to read the certificates.
 
-```bash
+```sh
 chmod o+r *.pem
 chmod o+r *.key
 sudo iotedge system restart
