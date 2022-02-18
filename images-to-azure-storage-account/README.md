@@ -18,7 +18,6 @@
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
   - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
-  - [ICU package error when running this example on Ubuntu](#icu-package-error-when-running-this-example-on-ubuntu)
 - [License](#license)
 
 ## Overview
@@ -111,6 +110,9 @@ To delete the deployed Azure services, including all images in the storage accou
 az group delete --name <resource group name>
 ```
 
+The Azure API Management instance will be [soft-deleted](https://aka.ms/apimsoftdelete) and remain known to Azure for 48 hours. This will prevent you from redeploying the application to a resource group with the same name. Please select a new name for the resource group, wait 48 hours or [purge the instance using the Azure REST API](https://aka.ms/apimsoftdelete#purge-a-soft-deleted-instance).
+
+
 ## Troubleshooting
 
 This section will highlight some of the common problems one might encounter when running this example application.
@@ -120,20 +122,6 @@ This section will highlight some of the common problems one might encounter when
 If the camera is unable to successfully send images to the Azure storage account, please make sure that the following statements are true.
 
 - **The camera is not behind a proxy**. This example does not support a network topology where requests needs to traverse a proxy to reach the internet.
-
-### ICU package error when running this example on Ubuntu
-
-Running this example on Ubuntu could result in the following error.
-
-```
-ERROR: Process terminated. Couldn't find a valid ICU package installed on the system. Set the configuration flag System.Globalization.Invariant to true if you want to run with no globalization support.
-```
-
-This can be solved by setting an environment variable.
-
-```bash
-export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-```
 
 ## License
 
