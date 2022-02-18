@@ -12,7 +12,7 @@
     "publisherEmail": {
       "type": "string",
       "metadata": {
-        "description": "E-mail address to receive system notifications sent from API Management."
+        "description": "Email address to receive system notifications sent from API Management."
       }
     }
   },

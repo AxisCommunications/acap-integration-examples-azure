@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [[ $# -ne 1 ]] ; then
+if [[ $# -ne 1 ]]; then
   echo "Error: Unsupported number of arguments"
   echo
   echo "USAGE:"
