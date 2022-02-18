@@ -114,7 +114,6 @@ az group delete --name <resource group name>
 
 The Azure API Management instance will be [soft-deleted](https://aka.ms/apimsoftdelete) and remain known to Azure for 48 hours. This will prevent you from redeploying the application to a resource group with the same name. Please select a new name for the resource group, wait 48 hours or [purge the instance using the Azure REST API](https://aka.ms/apimsoftdelete#purge-a-soft-deleted-instance).
 
-
 ## Troubleshooting
 
 This section will highlight some of the common problems one might encounter when running this example application.
