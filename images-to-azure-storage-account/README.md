@@ -4,7 +4,7 @@
 # Images to Azure storage account
 
 [![Build images-to-azure-storage-account](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml)
-[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml)
+[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
 <!-- omit in toc -->

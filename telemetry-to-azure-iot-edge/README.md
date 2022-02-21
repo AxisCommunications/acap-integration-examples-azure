@@ -4,7 +4,7 @@
 # Telemetry to Azure IoT Edge
 
 [![Build telemetry-to-azure-iot-edge](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-edge.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-edge.yml)
-[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/linter.yml)
+[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-No-red)
 
 > Please note that this example is intended for proof-of-concepts and not for production. Efforts into making it production ready are under way, please stay tuned for updates.
