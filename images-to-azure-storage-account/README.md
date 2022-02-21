@@ -95,10 +95,10 @@ Now let's navigate to the *Rules* tab. Here we'll finally create a rule that com
 
 - **Name**: `Images to Azure storage`
 - **Condition**: `Pulse`
-  - **Pulse**: `Every Minute`
+    - **Pulse**: `Every Minute`
 - **Action**: `Send images through HTTPS`
-  - **Recipient**: `Azure storage`
-  - **Maximum images**: `1`
+    - **Recipient**: `Azure storage`
+    - **Maximum images**: `1`
 
 Click the *Save* button.
 
