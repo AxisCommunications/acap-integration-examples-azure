@@ -14,12 +14,12 @@
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
-  - [Deploy Azure resources](#deploy-azure-resources)
-  - [Configure the camera](#configure-the-camera)
-  - [Add additional IoT devices](#add-additional-iot-devices)
+    - [Deploy Azure resources](#deploy-azure-resources)
+    - [Configure the camera](#configure-the-camera)
+    - [Add additional IoT devices](#add-additional-iot-devices)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
-  - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
+    - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
 - [License](#license)
 
 ## Overview

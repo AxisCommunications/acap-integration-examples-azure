@@ -14,11 +14,11 @@
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
-  - [Deploy Azure resources](#deploy-azure-resources)
-  - [Configure the camera](#configure-the-camera)
+    - [Deploy Azure resources](#deploy-azure-resources)
+    - [Configure the camera](#configure-the-camera)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
-  - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
+    - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
 - [License](#license)
 
 ## Overview
