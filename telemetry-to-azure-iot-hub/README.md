@@ -101,17 +101,17 @@ The next step is to configure the MQTT client on the camera.
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *MQTT*
 1. In the *Server* section use the following settings
-   - Protocol: `MQTT over WebSocket Secure`
-   - Host: `<iot hub name>.azure-devices.net`, i.e. the `host` output value from the Azure deployment
-   - Port: `443`
-   - Basepath: `$iothub/websocket`
-   - Username `<iot hub name>.azure-devices.net/<device identity>/?api-version=2018-06-30`, i.e. the `username` output value from the Azure deployment
+    - Protocol: `MQTT over WebSocket Secure`
+    - Host: `<iot hub name>.azure-devices.net`, i.e. the `host` output value from the Azure deployment
+    - Port: `443`
+    - Basepath: `$iothub/websocket`
+    - Username `<iot hub name>.azure-devices.net/<device identity>/?api-version=2018-06-30`, i.e. the `username` output value from the Azure deployment
 1. Under the *Certificate* section use the following settings
-   - Client certificate: `<device certificate>`, i.e. the device certificate we just uploaded to the camera
-   - CA certificate: `Baltimore CyberTrust Root`
-   - Validate server certificate: `checked`
+    - Client certificate: `<device certificate>`, i.e. the device certificate we just uploaded to the camera
+    - CA certificate: `Baltimore CyberTrust Root`
+    - Validate server certificate: `checked`
 1. Under the *Policies* section use the following sections
-   - Client id: `<device identity>`, i.e. the `clientId` output value from the Azure deployment
+    - Client id: `<device identity>`, i.e. the `clientId` output value from the Azure deployment
 1. Click *Save*
 
 Once the settings are saved, click on *Connect* on the top of the MQTT settings page.
@@ -120,22 +120,22 @@ Let's continue with configuring the event type we wish to send to the Azure IoT 
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *Events* -> *Device events* -> *Schedules*
 1. Create a new schedule with the following settings
-   - **Type**: `Pulse`
-   - **Name**: `Every 5 seconds`
-   - **Repeat every**: `5 Seconds`
+    - **Type**: `Pulse`
+    - **Name**: `Every 5 seconds`
+    - **Repeat every**: `5 Seconds`
 1. Click *Save*
 
 Finally select pulses to be the event type the camera sends to the Azure IoT Hub.
 
 1. While still in *Events*, select *MQTT events*
 1. In the *Publish* section use the following settings
-   - **Use default condition prefix**: `Off`
-   - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
-   - **Include condition name**: `unchecked`
-   - **Include condition namespaces**: `unchecked`
-   - **Include serial number in payload**: `checked`
+    - **Use default condition prefix**: `Off`
+    - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
+    - **Include condition name**: `unchecked`
+    - **Include condition namespaces**: `unchecked`
+    - **Include serial number in payload**: `checked`
 1. In the *Event filter list* section use the following settings
-   - **Condition**: `Pulse`
+    - **Condition**: `Pulse`
 1. Click on *Save*
 
 At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub. You can monitor events by using the Azure CLI.
@@ -169,7 +169,7 @@ openssl genrsa -out "$device_identity.key" 2048
 
 # Generate a new certificate signing request (CSR)
 openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
-   -out "$device_identity.csr"
+    -out "$device_identity.csr"
 
 # Convert the downloaded CA certificate from PFX format to PEM format (press
 # enter when asked for password)
@@ -177,11 +177,11 @@ openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
 
 # Create the new device certificate
 openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
-   -days 365 -sha256 -out "$device_identity.pem"
+    -days 365 -sha256 -out "$device_identity.pem"
 
 # Convert the device certificate from PEM format to PFX format
 openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
-   -passout pass: -out "$device_identity.pfx"
+    -passout pass: -out "$device_identity.pfx"
 ```
 
 With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and then configure the camera using the same steps as the first camera in the application.
