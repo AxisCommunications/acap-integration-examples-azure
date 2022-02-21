@@ -243,11 +243,11 @@ With the hostname specified when creating the certificates, and with a valid use
 edge_device_hostname=<edge gateway hostname>
 username=<username>
 scp -p cert/ca.pem \
-   cert/$edge_device_hostname.pem \
-   cert/$edge_device_hostname.key \
-   cert/${edge_device_hostname}_ca.pem \
-   cert/${edge_device_hostname}_ca.key \
-   $username@$edge_device_hostname:/home/$username
+    cert/$edge_device_hostname.pem \
+    cert/$edge_device_hostname.key \
+    cert/${edge_device_hostname}_ca.pem \
+    cert/${edge_device_hostname}_ca.key \
+    $username@$edge_device_hostname:/home/$username
 ```
 
 As an example, given that the hostname is `azureiotedgedevice` and the username is `pi`, the commands would look like this.
@@ -256,11 +256,11 @@ As an example, given that the hostname is `azureiotedgedevice` and the username 
 edge_device_hostname=azureiotedgedevice
 username=pi
 scp -p cert/ca.pem \
-   cert/$edge_device_hostname.pem \
-   cert/$edge_device_hostname.key \
-   cert/${edge_device_hostname}_ca.pem \
-   cert/${edge_device_hostname}_ca.key \
-   $username@$edge_device_hostname:/home/$username
+    cert/$edge_device_hostname.pem \
+    cert/$edge_device_hostname.key \
+    cert/${edge_device_hostname}_ca.pem \
+    cert/${edge_device_hostname}_ca.key \
+    $username@$edge_device_hostname:/home/$username
 ```
 
 With the certificates successfully uploaded, please proceed with connecting to the Azure IoT Edge gateway using ssh and [install Azure IoT Edge](https://docs.microsoft.com/azure/iot-edge/how-to-provision-single-device-linux-x509#install-iot-edge). If you encounter any issues, please make sure to read the [Troubleshooting](#troubleshooting) section.
@@ -349,17 +349,17 @@ The next step is to configure the MQTT client on the camera.
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *MQTT*
 1. In the *Server* section use the following settings
-   - Protocol: `MQTT over WebSocket Secure`
-   - Host: `<edge gateway hostname>`, e.g. `azureiotedgedevice`
-   - Port: `443`
-   - Basepath: `$iothub/websocket`
-   - Username `<edge gateway hostname>/<device identity>/?api-version=2018-06-30`, e.g. `azureiotedgedevice/device01/?api-version=2018-06-30`
+    - Protocol: `MQTT over WebSocket Secure`
+    - Host: `<edge gateway hostname>`, e.g. `azureiotedgedevice`
+    - Port: `443`
+    - Basepath: `$iothub/websocket`
+    - Username `<edge gateway hostname>/<device identity>/?api-version=2018-06-30`, e.g. `azureiotedgedevice/device01/?api-version=2018-06-30`
 1. Under the *Certificate* section use the following settings
-   - Client certificate: `<device identity>`, e.g. `device01`
-   - CA certificate: `ca`
-   - Validate server certificate: `checked`
+    - Client certificate: `<device identity>`, e.g. `device01`
+    - CA certificate: `ca`
+    - Validate server certificate: `checked`
 1. Under the *Policies* section use the following sections
-   - Client id: `<device identity>`, e.g. `device01`
+    - Client id: `<device identity>`, e.g. `device01`
 1. Click *Save*
 
 Once the settings are saved, click on *Connect* on the top of the MQTT settings page.
@@ -368,22 +368,22 @@ Let's continue with configuring the event type we wish to send to the Azure IoT 
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *Events* -> *Device events* -> *Schedules*
 1. Create a new schedule with the following settings
-   - **Type**: `Pulse`
-   - **Name**: `Every 5 seconds`
-   - **Repeat every**: `5 Seconds`
+    - **Type**: `Pulse`
+    - **Name**: `Every 5 seconds`
+    - **Repeat every**: `5 Seconds`
 1. Click *Save*
 
 Finally select pulses to be the event type the camera sends to the Azure IoT Hub.
 
 1. While still in *Events*, select *MQTT events*
 1. In the *Publish* section use the following settings
-   - **Use default condition prefix**: `Off`
-   - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
-   - **Include condition name**: `unchecked`
-   - **Include condition namespaces**: `unchecked`
-   - **Include serial number in payload**: `checked`
+    - **Use default condition prefix**: `Off`
+    - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
+    - **Include condition name**: `unchecked`
+    - **Include condition namespaces**: `unchecked`
+    - **Include serial number in payload**: `checked`
 1. In the *Event filter list* section use the following settings
-   - **Condition**: `Pulse`
+    - **Condition**: `Pulse`
 1. Click on *Save*
 
 At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub via the edge gateway. You can monitor events by using the Azure CLI.
