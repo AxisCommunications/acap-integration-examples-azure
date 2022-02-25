@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.1272.37030",
-      "templateHash": "8744696291742849868"
+      "templateHash": "122078402494127881"
     }
   },
   "parameters": {
@@ -34,10 +34,16 @@
       "metadata": {
         "description": "  The name of the IoT device, used for authentication and access control.\n  "
       }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "The location to deploy all resources in."
+      }
     }
   },
   "variables": {
-    "location": "[resourceGroup().location]",
     "tenantId": "[subscription().tenantId]",
     "hash": "[uniqueString(resourceGroup().id)]",
     "contributorRoleId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]"
@@ -47,7 +53,7 @@
       "type": "Microsoft.Devices/IotHubs",
       "apiVersion": "2021-03-31",
       "name": "[format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))]",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "sku": {
         "name": "S1",
         "capacity": 1
@@ -57,7 +63,7 @@
       "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
       "apiVersion": "2018-11-30",
       "name": "telemetry-to-azure-iot-hub",
-      "location": "[variables('location')]"
+      "location": "[parameters('location')]"
     },
     {
       "type": "Microsoft.Authorization/roleAssignments",
@@ -76,7 +82,7 @@
       "type": "Microsoft.KeyVault/vaults",
       "apiVersion": "2021-06-01-preview",
       "name": "[format('keyvault-{0}', variables('hash'))]",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "properties": {
         "accessPolicies": [
           {
@@ -118,7 +124,7 @@
       "type": "Microsoft.Resources/deploymentScripts",
       "apiVersion": "2020-10-01",
       "name": "certificates",
-      "location": "[variables('location')]",
+      "location": "[parameters('location')]",
       "kind": "AzureCLI",
       "identity": {
         "type": "UserAssigned",
