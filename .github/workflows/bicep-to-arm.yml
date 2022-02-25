@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - '**.bicep'
-  pull_request:
 
 jobs:
   build:
