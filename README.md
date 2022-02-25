@@ -17,11 +17,11 @@ The repository contains a set of examples, each tailored towards a specific prob
 If you find yourself wishing there was another example more relevant to your use case, please don't hesitate to [start a discussion](https://github.com/AxisCommunications/acap-integration-examples-azure/discussions/new) or [open a new issue](https://github.com/AxisCommunications/acap-integration-examples-azure/issues/new/choose).
 
 - [images-to-azure-storage-account](./images-to-azure-storage-account/)
-  - This example covers sending images from a camera to a storage account in Azure
+    - This example covers sending images from a camera to a storage account in Azure
 - [telemetry-to-azure-iot-edge](./telemetry-to-azure-iot-edge/)
-  - This example covers sending telemetry from a camera to IoT Edge on-premises
+    - This example covers sending telemetry from a camera to IoT Edge on-premises
 - [telemetry-to-azure-iot-hub](./telemetry-to-azure-iot-hub/)
-  - This example covers sending telemetry from a camera to an IoT Hub in Azure
+    - This example covers sending telemetry from a camera to an IoT Hub in Azure
 
 ## License
 

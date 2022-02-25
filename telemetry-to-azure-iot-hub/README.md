@@ -4,6 +4,7 @@
 # Telemetry to Azure IoT Hub
 
 [![Build telemetry-to-azure-iot-hub](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/telemetry-to-azure-iot-hub.yml)
+[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
 <!-- omit in toc -->
@@ -13,12 +14,12 @@
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
-  - [Deploy Azure resources](#deploy-azure-resources)
-  - [Configure the camera](#configure-the-camera)
-  - [Add additional IoT devices](#add-additional-iot-devices)
+    - [Deploy Azure resources](#deploy-azure-resources)
+    - [Configure the camera](#configure-the-camera)
+    - [Add additional IoT devices](#add-additional-iot-devices)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
-  - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
+    - [MQTT client cannot connect to the Azure IoT Hub](#mqtt-client-cannot-connect-to-the-azure-iot-hub)
 - [License](#license)
 
 ## Overview
@@ -41,6 +42,7 @@ An Axis camera has an internal MQTT client that will connect to the IoT Hub in A
 
 ## File structure
 
+<!-- markdownlint-disable MD040 -->
 ```
 telemetry-to-azure-iot-hub
 ├── main.bicep    Azure Bicep template describing the Azure resources.
@@ -55,6 +57,7 @@ The instructions are divided into two parts. The first part covers deploying the
 
 > Disclaimer: The generated X.509 certificates are valid for 365 days, which means that a solution deployed with these certificates will be operational for about a year. To remain operational longer that that, update the script to generate certificates with a longer validity, or re-provision the solution after a year when the certificates have expired.
 
+<!-- markdownlint-disable MD028 -->
 > Disclaimer: The generated X.509 certificates are self-signed. To root the certificates in a trusted root Certificate Authority (CA), please contact a trusted commercial certificate authority like Baltimore, Verisign, or DigiCert.
 
 Let's deploy the Azure resources required to receive telemetry from a camera. Navigate to the Azure Portal by right-clicking the button below and open the link in a new tab.
@@ -98,17 +101,17 @@ The next step is to configure the MQTT client on the camera.
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *MQTT*
 1. In the *Server* section use the following settings
-   - Protocol: `MQTT over WebSocket Secure`
-   - Host: `<iot hub name>.azure-devices.net`, i.e. the `host` output value from the Azure deployment
-   - Port: `443`
-   - Basepath: `$iothub/websocket`
-   - Username `<iot hub name>.azure-devices.net/<device identity>/?api-version=2018-06-30`, i.e. the `username` output value from the Azure deployment
+    - Protocol: `MQTT over WebSocket Secure`
+    - Host: `<iot hub name>.azure-devices.net`, i.e. the `host` output value from the Azure deployment
+    - Port: `443`
+    - Basepath: `$iothub/websocket`
+    - Username `<iot hub name>.azure-devices.net/<device identity>/?api-version=2018-06-30`, i.e. the `username` output value from the Azure deployment
 1. Under the *Certificate* section use the following settings
-   - Client certificate: `<device certificate>`, i.e. the device certificate we just uploaded to the camera
-   - CA certificate: `Baltimore CyberTrust Root`
-   - Validate server certificate: `checked`
+    - Client certificate: `<device certificate>`, i.e. the device certificate we just uploaded to the camera
+    - CA certificate: `Baltimore CyberTrust Root`
+    - Validate server certificate: `checked`
 1. Under the *Policies* section use the following sections
-   - Client id: `<device identity>`, i.e. the `clientId` output value from the Azure deployment
+    - Client id: `<device identity>`, i.e. the `clientId` output value from the Azure deployment
 1. Click *Save*
 
 Once the settings are saved, click on *Connect* on the top of the MQTT settings page.
@@ -117,27 +120,27 @@ Let's continue with configuring the event type we wish to send to the Azure IoT 
 
 1. In the user interface of the camera, select *Settings* -> *System* -> *Events* -> *Device events* -> *Schedules*
 1. Create a new schedule with the following settings
-   - **Type**: `Pulse`
-   - **Name**: `Every 5 seconds`
-   - **Repeat every**: `5 Seconds`
+    - **Type**: `Pulse`
+    - **Name**: `Every 5 seconds`
+    - **Repeat every**: `5 Seconds`
 1. Click *Save*
 
 Finally select pulses to be the event type the camera sends to the Azure IoT Hub.
 
 1. While still in *Events*, select *MQTT events*
 1. In the *Publish* section use the following settings
-   - **Use default condition prefix**: `Off`
-   - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
-   - **Include condition name**: `unchecked`
-   - **Include condition namespaces**: `unchecked`
-   - **Include serial number in payload**: `checked`
+    - **Use default condition prefix**: `Off`
+    - **Custom condition prefix**: `devices/<device identity>/messages/events/`, e.g. `devices/device01/messages/events/`
+    - **Include condition name**: `unchecked`
+    - **Include condition namespaces**: `unchecked`
+    - **Include serial number in payload**: `checked`
 1. In the *Event filter list* section use the following settings
-   - **Condition**: `Pulse`
+    - **Condition**: `Pulse`
 1. Click on *Save*
 
 At this point the camera is sending a new event every 5 seconds to the Azure IoT Hub. You can monitor events by using the Azure CLI.
 
-```bash
+```sh
 az iot hub monitor-events --hub-name <iot hub name>
 ```
 
@@ -154,7 +157,7 @@ With the new Azure IoT device created, navigate to your Key Vault instance and s
 
 With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
-```
+```sh
 # Define a variable with the name of the new device
 device_identity=device02
 
@@ -166,7 +169,7 @@ openssl genrsa -out "$device_identity.key" 2048
 
 # Generate a new certificate signing request (CSR)
 openssl req -new -key "$device_identity.key" -subj "/CN=$device_identity" \
-   -out "$device_identity.csr"
+    -out "$device_identity.csr"
 
 # Convert the downloaded CA certificate from PFX format to PEM format (press
 # enter when asked for password)
@@ -174,21 +177,20 @@ openssl pkcs12 -in "$ca_path" -nodes -out ca.pem
 
 # Create the new device certificate
 openssl x509 -req -in "$device_identity.csr" -CA ca.pem -CAcreateserial \
-   -days 365 -sha256 -out "$device_identity.pem"
+    -days 365 -sha256 -out "$device_identity.pem"
 
 # Convert the device certificate from PEM format to PFX format
 openssl pkcs12 -inkey "$device_identity.key" -in "$device_identity.pem" -export \
-   -passout pass: -out "$device_identity.pfx"
+    -passout pass: -out "$device_identity.pfx"
 ```
 
 With the new device certificate `device02.pfx` created, please proceed to upload the certificate to the camera, and then configure the camera using the same steps as the first camera in the application.
-
 
 ## Cleanup
 
 To delete all deployed resources in Azure, run the following CLI command
 
-```bash
+```sh
 az group delete --name <resource group name>
 ```
 

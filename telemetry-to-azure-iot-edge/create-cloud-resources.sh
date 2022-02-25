@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [[ $# -ne 5 ]] ; then
+if [[ $# -ne 5 ]]; then
   echo "Error: Unsupported number of arguments"
   echo
   echo "USAGE:"
@@ -37,15 +37,15 @@ device_identity=$5
 ca_cert_name=ca
 ca_cert_path=./cert/ca.pem
 
-if [[ ! -f "$ca_cert_path" ]] ; then
+if [[ ! -f "$ca_cert_path" ]]; then
   echo "Root Certificate Authory (CA) certificate does not exist in local"
   echo "directory, run create-certificates.sh to create it."
   exit 1
 fi
 
-local_ca_certificate_thumbprint=$(openssl x509 -in $ca_cert_path -fingerprint -noout \
-  | sed -E 's|:||g' \
-  | cut -f2 -d'=')
+local_ca_certificate_thumbprint=$(openssl x509 -in $ca_cert_path -fingerprint -noout |
+  sed -E 's|:||g' |
+  cut -f2 -d'=')
 
 # ------------------------------------------------------------------------------
 # PROVISION AZURE RESOURCES
@@ -62,7 +62,7 @@ az group create \
 # Next we create the IoT Hub. We select the S1 tier and a capacity of 1 unit,
 # which is enough to test this application.
 echo "Checking if IoT Hub '$iot_hub_name' in resource group '$resource_group_name' exists..."
-if [[ $(az iot hub list --query "[?name=='$iot_hub_name' && resourcegroup=='$resource_group_name'] | length(@)") -ne 1 ]] ; then
+if [[ $(az iot hub list --query "[?name=='$iot_hub_name' && resourcegroup=='$resource_group_name'] | length(@)") -ne 1 ]]; then
   echo "IoT Hub does not exist, creating it..."
   az iot hub create \
     --name "$iot_hub_name" \
@@ -75,7 +75,7 @@ fi
 
 # With the IoT Hub created, let's upload the root CA certificate.
 echo "Checking if root CA certificate is uploaded to IoT Hub..."
-if [[ $(az iot hub certificate list --hub-name "$iot_hub_name" --query "value[?name=='$ca_cert_name' && properties.thumbprint=='$local_ca_certificate_thumbprint'] | length(@)") -ne 1  ]] ; then
+if [[ $(az iot hub certificate list --hub-name "$iot_hub_name" --query "value[?name=='$ca_cert_name' && properties.thumbprint=='$local_ca_certificate_thumbprint'] | length(@)") -ne 1 ]]; then
   echo "IoT Hub root CA certificate does not exist, uploading local root CA certificate..."
   az iot hub certificate create \
     --resource-group "$resource_group_name" \
@@ -89,7 +89,7 @@ fi
 # Our root CA certificate is now uploaded and verified, and we can create our
 # device identity, representing the Axis camera, in the IoT Hub.
 echo "Checking if device identity exists in IoT Hub..."
-if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$device_identity' && capabilities.iotEdge==\`false\`] | length(@)") -ne 1 ]] ; then
+if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$device_identity' && capabilities.iotEdge==\`false\`] | length(@)") -ne 1 ]]; then
   echo "Device identity '$device_identity' does not exist in IoT Hub, creating it..."
   az iot hub device-identity create \
     --resource-group "$resource_group_name" \
@@ -102,7 +102,7 @@ fi
 # We are now ready to create the IoT Edge device, a.k.a. the transparent
 # gateway, and add the Axis camera as a child to the IoT Edge device.
 echo "Checking if IoT Edge device identity exists in IoT Hub..."
-if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$edge_device_hostname' && capabilities.iotEdge] | length(@)") -ne 1 ]] ; then
+if [[ $(az iot hub device-identity list --hub-name "$iot_hub_name" --query "[?deviceId=='$edge_device_hostname' && capabilities.iotEdge] | length(@)") -ne 1 ]]; then
   echo "IoT Edge device identity '$edge_device_hostname' does not exist in IoT Hub, creating it..."
   az iot hub device-identity create \
     --resource-group "$resource_group_name" \
