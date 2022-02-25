@@ -33,7 +33,9 @@ param iotHubNamePrefix string = 'axis-telemetry'
   ''')
 param deviceIdentity string = 'device01'
 
-var location = resourceGroup().location
+@description('The location to deploy all resources in.')
+param location string = resourceGroup().location
+
 var tenantId = subscription().tenantId
 var hash = uniqueString(resourceGroup().id)
 
