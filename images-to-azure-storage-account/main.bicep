@@ -9,7 +9,7 @@
 @description('Email address to receive system notifications sent from API Management.')
 param publisherEmail string
 
-@description('The location to deploy resources in.')
+@description('The location to deploy all resources in.')
 param location string = resourceGroup().location
 
 var commonName = 'image-upload-${uniqueString(resourceGroup().id)}'
