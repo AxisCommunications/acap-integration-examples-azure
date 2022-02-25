@@ -9,6 +9,9 @@
 @description('Email address to receive system notifications sent from API Management.')
 param publisherEmail string
 
+@description('The location to deploy resources in.')
+param location string = resourceGroup().location
+
 var commonName = 'image-upload-${uniqueString(resourceGroup().id)}'
 
 // -----------------------------------------------------------------------------
@@ -18,8 +21,6 @@ var commonName = 'image-upload-${uniqueString(resourceGroup().id)}'
 // storage-blob-data-contributor built-in role
 // https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor
 var storageBlobDataContributorRoleId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
-
-param location string = resourceGroup().location
 
 resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: 'image${uniqueString(resourceGroup().id)}'
