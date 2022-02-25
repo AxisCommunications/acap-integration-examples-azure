@@ -6,7 +6,7 @@
 // az deployment group create -g <resource group> -f main.bicep --parameters \
 //   publisherEmail=<e-mail address>
 
-@description('E-mail address to receive system notifications sent from API Management.')
+@description('Email address to receive system notifications sent from API Management.')
 param publisherEmail string
 
 var commonName = 'image-upload-${uniqueString(resourceGroup().id)}'

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [[ $# -ne 3 ]] ; then
+if [[ $# -ne 3 ]]; then
   echo "Error: Unsupported number of arguments"
   echo
   echo "USAGE:"
@@ -53,7 +53,7 @@ mkdir -p cert
 # Authority (CA) certificate which later on in the example will be uploaded to
 # the Azure IoT Hub.
 echo "Checking local directory for root CA certificate..."
-if [[ ! -f "$ca_key_path" || ! -f "$ca_cert_path" ]] ; then
+if [[ ! -f "$ca_key_path" || ! -f "$ca_cert_path" ]]; then
   echo "Root CA certificate does not exist in local directory, creating it..."
   openssl genrsa -out $ca_key_path 4096
   openssl req -x509 -new -nodes -key $ca_key_path -sha256 -days $valid_for_days \
@@ -65,7 +65,7 @@ fi
 # IoT Edge, a.k.a. the transparent gateway, and will be used when Azure IoT Edge
 # connects and authenticates itself to the Azure IoT Hub.
 echo "Checking local directory for edge gateway certificate..."
-if [[ ! -f "$edge_device_key_path" || ! -f "$edge_device_cert_path" ]] ; then
+if [[ ! -f "$edge_device_key_path" || ! -f "$edge_device_cert_path" ]]; then
   echo "Edge gateway certificate does not exist in local directory, creating it..."
   openssl genrsa -out "$edge_device_key_path" 2048
   openssl req -new -key "$edge_device_key_path" -subj "/CN=$edge_gateway_hostname" \
@@ -81,7 +81,7 @@ fi
 # IoT Edge device, a.k.a. transparent gateway, and act as a intermediate
 # certificate for connected Azure IoT devices.
 echo "Checking local directory for edge gateway CA certificate..."
-if [[ ! -f "$edge_device_ca_key_path" || ! -f "$edge_device_ca_cert_path" ]] ; then
+if [[ ! -f "$edge_device_ca_key_path" || ! -f "$edge_device_ca_cert_path" ]]; then
   echo "Azure edge gateway CA certificate does not exist in local directory, creating it..."
   openssl genrsa -out "$edge_device_ca_key_path" 4096
   openssl req -new -key "$edge_device_ca_key_path" -subj "/CN=$edge_gateway_hostname.ca" \
@@ -89,7 +89,7 @@ if [[ ! -f "$edge_device_ca_key_path" || ! -f "$edge_device_ca_cert_path" ]] ; t
   openssl x509 -req -in "$edge_device_ca_csr_path" -CA "$ca_cert_path" -CAkey "$ca_key_path" \
     -sha256 -days $valid_for_days -CAcreateserial -extfile openssl.cnf \
     -extensions "v3_intermediate_ca" -out "$edge_device_ca_cert_path"
-  cat "$ca_cert_path" >> "$edge_device_ca_cert_path"
+  cat "$ca_cert_path" >>"$edge_device_ca_cert_path"
   rm "$edge_device_ca_csr_path"
 fi
 
@@ -98,7 +98,7 @@ fi
 # certificate will be used by the Axis camera when authenticating itself to
 # Azure IoT Edge.
 echo "Checking local directory for device certificate..."
-if [[ ! -f "$device_key_path" || ! -f "$device_cert_path" ]] ; then
+if [[ ! -f "$device_key_path" || ! -f "$device_cert_path" ]]; then
   echo "Device certificate does not exist in local directory, creating it..."
   openssl genrsa -out "$device_key_path" 2048
   openssl req -new -key "$device_key_path" -subj "/CN=$device_identity" -config openssl.cnf \

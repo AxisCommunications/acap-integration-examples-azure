@@ -4,6 +4,7 @@
 # Images to Azure storage account
 
 [![Build images-to-azure-storage-account](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/images-to-azure-storage-account.yml)
+[![Lint codebase](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml/badge.svg)](https://github.com/AxisCommunications/acap-integration-examples-azure/actions/workflows/lint.yml)
 ![Ready for use in production](https://img.shields.io/badge/Ready%20for%20use%20in%20production-Yes-brightgreen)
 
 <!-- omit in toc -->
@@ -13,11 +14,11 @@
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
-  - [Deploy Azure resources](#deploy-azure-resources)
-  - [Configure the camera](#configure-the-camera)
+    - [Deploy Azure resources](#deploy-azure-resources)
+    - [Configure the camera](#configure-the-camera)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
-  - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
+    - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
 - [License](#license)
 
 ## Overview
@@ -39,6 +40,7 @@ The camera will send images to the blob container via an API Management endpoint
 
 ## File structure
 
+<!-- markdownlint-disable MD040 -->
 ```
 images-to-azure-storage-account
 ├── main.bicep    Azure Bicep template describing the Azure resources.
@@ -57,7 +59,7 @@ Let's deploy the Azure resources receiving the images sent from a camera. Naviga
 
 The template, `main.bicep`, is written in [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/), a language created by Microsoft to define infrastructure as code. It will require you to set the following custom parameters.
 
-- **Publisher Email** - E-mail address that will receive all system notifications sent from the API-management resource
+- **Publisher Email** - Email address that will receive all system notifications sent from the API-management resource
 
 Once the deployment is complete, navigate to the *Outputs* tab and take note of the `endpoint` value. We will use this endpoint in the next chapter when we configure the camera.
 
@@ -93,10 +95,10 @@ Now let's navigate to the *Rules* tab. Here we'll finally create a rule that com
 
 - **Name**: `Images to Azure storage`
 - **Condition**: `Pulse`
-  - **Pulse**: `Every Minute`
+    - **Pulse**: `Every Minute`
 - **Action**: `Send images through HTTPS`
-  - **Recipient**: `Azure storage`
-  - **Maximum images**: `1`
+    - **Recipient**: `Azure storage`
+    - **Maximum images**: `1`
 
 Click the *Save* button.
 
@@ -106,12 +108,11 @@ At this point the rule will become active and send a snapshot to Azure storage e
 
 To delete the deployed Azure services, including all images in the storage account, either use the Azure Portal to delete the resource group, or run the following CLI command.
 
-```
+```sh
 az group delete --name <resource group name>
 ```
 
 The Azure API Management instance will be [soft-deleted](https://aka.ms/apimsoftdelete) and remain known to Azure for 48 hours. This will prevent you from redeploying the application to a resource group with the same name. Please select a new name for the resource group, wait 48 hours or [purge the instance using the Azure REST API](https://aka.ms/apimsoftdelete#purge-a-soft-deleted-instance).
-
 
 ## Troubleshooting
 
