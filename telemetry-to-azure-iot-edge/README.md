@@ -74,7 +74,7 @@ For more information regarding the relevance of this sample, please see the foll
 - ssh (Secure Shell)
 - scp (Secure Copy Protocol)
 
-To follow the procedures in this example, you need a command-line terminal or shell to run commands.
+To follow the procedures in this example you need a command-line terminal or shell to run commands.
 
 In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
 
