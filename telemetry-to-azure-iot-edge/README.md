@@ -16,7 +16,7 @@
 - [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
-- [Command-line terminal](#command-line-terminal)
+- [Command-line interface](#command-line-interface)
 - [Instructions](#instructions)
     - [Create X.509 certificates](#create-x509-certificates)
     - [Deploy Azure resources](#deploy-azure-resources)
@@ -89,11 +89,11 @@ telemetry-to-azure-iot-edge
 └── openssl.cnf                    Configuration file for OpenSSL.
 ```
 
-## Command-line terminal
+## Command-line interface
 
-To follow the procedures in this example you need a command-line terminal or shell to run commands.
+To follow the procedures in this example you need a command-line interface or shell to run commands.
 
-In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
+In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
 
 <!-- markdownlint-disable MD040 -->
 ```
@@ -470,7 +470,7 @@ $ ls -la
 
 The output above is an indication of the problem. The file permissions only allow the currently logged in user, and its group, to read the files. But as it turns out, Azure IoT Edge needs to be able to read them as well.
 
-In the same terminal, issue the following commands to allow all users on the computer to read the certificates.
+In the same command-line interface, issue the following commands to allow all users on the computer to read the certificates.
 
 ```sh
 chmod o+r *.pem

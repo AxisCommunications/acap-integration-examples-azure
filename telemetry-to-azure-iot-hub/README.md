@@ -13,7 +13,7 @@
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
-- [Command-line terminal](#command-line-terminal)
+- [Command-line interface](#command-line-interface)
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
     - [Configure the camera](#configure-the-camera)
@@ -50,9 +50,9 @@ telemetry-to-azure-iot-hub
 └── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
 ```
 
-## Command-line terminal
+## Command-line interface
 
-No command-line terminal is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
+No command-line interface is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
 
 <!-- markdownlint-disable MD040 -->
 ```
@@ -184,7 +184,7 @@ Assuming that the new device will be named `device02`, enter the following infor
 
 With the new Azure IoT device created, navigate to your Key Vault instance and select *Certificates* under *Settings* in the left pane. Click the `ca` certificate and download it in the same way as you previously downloaded the `device` certificate.
 
-With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
+With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a command-line interface and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
 ```sh
 # Define a variable with the name of the new device

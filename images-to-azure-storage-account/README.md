@@ -13,7 +13,7 @@
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
-- [Command-line terminal](#command-line-terminal)
+- [Command-line interface](#command-line-interface)
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
     - [Configure the camera](#configure-the-camera)
@@ -48,9 +48,9 @@ images-to-azure-storage-account
 └── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
 ```
 
-## Command-line terminal
+## Command-line interface
 
-No command-line terminal is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
+No command-line interface is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
 
 <!-- markdownlint-disable MD040 -->
 ```
