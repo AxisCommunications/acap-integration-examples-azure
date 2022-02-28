@@ -83,7 +83,7 @@ In some command listings, the commands are described as is, ready to be copied t
 this is a command
 ```
 
-In other code listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
+In other command listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
 
 <!-- markdownlint-disable MD040 -->
 ```
