@@ -40,7 +40,7 @@ An Axis camera has an internal MQTT client that will connect to the IoT Hub in A
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware >=10.4)
 
-No command line terminal is needed to run this example even though there are command listings. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
+No command-line terminal is needed to run this example even though there are command listings. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
 
 <!-- markdownlint-disable MD040 -->
 ```
