@@ -59,7 +59,8 @@ Let's deploy the Azure resources receiving the images sent from a camera. Naviga
 
 The template, `main.bicep`, is written in [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/), a language created by Microsoft to define infrastructure as code. It will require you to set the following custom parameters.
 
-- **Publisher Email** - Email address that will receive all system notifications sent from the API-management resource
+- **Publisher Email** - Email address that will receive all system notifications sent from the API-management resource.
+- **Location** - The location to deploy all resources in. Default value tells Azure to deploy resources to the location of the resource group.
 
 Once the deployment is complete, navigate to the *Outputs* tab and take note of the `endpoint` value. We will use this endpoint in the next chapter when we configure the camera.
 

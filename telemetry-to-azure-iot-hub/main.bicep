@@ -5,9 +5,7 @@
 //
 //   az deployment group create -g <resource group> -f main.bicep --parameters \
 //     objectId=$(az ad signed-in-user show --query objectId --output tsv) \
-//     organizationName=<organization name> \
-//     iotHubNamePrefix=<IoT Hub name prefix> \
-//     deviceIdentity=<IoT device identity>
+//     organizationName=<organization name>
 
 @description('''
   The object ID of your Azure Active Directory user. The object ID can be found

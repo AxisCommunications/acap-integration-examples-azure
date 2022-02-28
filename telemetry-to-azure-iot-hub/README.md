@@ -67,9 +67,10 @@ Let's deploy the Azure resources required to receive telemetry from a camera. Na
 The template will require the following custom parameters.
 
 - **Object ID** - The object ID of your Azure Active Directory user. The object ID can be found either by navigating to your user in Azure Active Directory, or by running the following command in the [Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/): `az ad signed-in-user show --query objectId --output tsv`.
-- **Organization name** - The name of your organization, used when generating the X.509 certificates
-- **IoT Hub name** - The name of the IoT Hub. Please note that the name must be unique, i.e. two IoT Hubs in Azure cannot share the same name.
-- **Device identity** - The name of the IoT device, used for authentication and access control
+- **Organization name** - The name of your organization, used when generating the X.509 certificates.
+- **IoT Hub name prefix** - The prefix of the IoT Hub name. A generated hash will be appended to the name, guaranteeing its uniqueness on Azure. Default value is `axis-telemetry`.
+- **Device identity** - The name of the IoT device, used for authentication and access control. Default value is `device01`.
+- **Location** - The location to deploy all resources in. Default value tells Azure to deploy resources to the location of the resource group.
 
 Once the deployment is complete, navigate to the *Outputs* tab and take note of the values with name `host`, `username` and `clientId`. We will use these values in the next chapter when we configure the camera.
 
