@@ -15,8 +15,8 @@
 - [Overview](#overview)
 - [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
-- [Command-line terminal](#command-line-terminal)
 - [File structure](#file-structure)
+- [Command-line terminal](#command-line-terminal)
 - [Instructions](#instructions)
     - [Create X.509 certificates](#create-x509-certificates)
     - [Deploy Azure resources](#deploy-azure-resources)
@@ -75,6 +75,20 @@ For more information regarding the relevance of this sample, please see the foll
 - ssh (Secure Shell)
 - scp (Secure Copy Protocol)
 
+## File structure
+
+<!-- markdownlint-disable MD040 -->
+```
+telemetry-to-azure-iot-edge
+├── create-certificates.sh         Bash script that creates X.509 certificates for secure
+│                                  authentication and communication between camera, Azure IoT Edge
+│                                  and Azure IoT Hub.
+├── create-cloud-resources.sh      Bash script that creates Azure resources.
+├── edge-gateway.deployment.json   Azure IoT Edge gateway deployment manifest that will deploy the
+│                                  IoT Edge agent module and the IoT Edge hub module.
+└── openssl.cnf                    Configuration file for OpenSSL.
+```
+
 ## Command-line terminal
 
 To follow the procedures in this example you need a command-line terminal or shell to run commands.
@@ -103,20 +117,6 @@ some-command <your input>
 For long commands, we use an escape character (`\`) to split a command over multiple lines.
 
 On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
-
-## File structure
-
-<!-- markdownlint-disable MD040 -->
-```
-telemetry-to-azure-iot-edge
-├── create-certificates.sh         Bash script that creates X.509 certificates for secure
-│                                  authentication and communication between camera, Azure IoT Edge
-│                                  and Azure IoT Hub.
-├── create-cloud-resources.sh      Bash script that creates Azure resources.
-├── edge-gateway.deployment.json   Azure IoT Edge gateway deployment manifest that will deploy the
-│                                  IoT Edge agent module and the IoT Edge hub module.
-└── openssl.cnf                    Configuration file for OpenSSL.
-```
 
 ## Instructions
 

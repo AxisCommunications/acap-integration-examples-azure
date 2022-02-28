@@ -12,8 +12,8 @@
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Command-line terminal](#command-line-terminal)
 - [File structure](#file-structure)
+- [Command-line terminal](#command-line-terminal)
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
     - [Configure the camera](#configure-the-camera)
@@ -41,6 +41,15 @@ An Axis camera has an internal MQTT client that will connect to the IoT Hub in A
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware >=10.4)
 
+## File structure
+
+<!-- markdownlint-disable MD040 -->
+```
+telemetry-to-azure-iot-hub
+├── main.bicep    Azure Bicep template describing the Azure resources.
+└── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
+```
+
 ## Command-line terminal
 
 No command-line terminal is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
@@ -67,15 +76,6 @@ some-command <your input>
 For long commands, we use an escape character (`\`) to split a command over multiple lines.
 
 On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
-
-## File structure
-
-<!-- markdownlint-disable MD040 -->
-```
-telemetry-to-azure-iot-hub
-├── main.bicep    Azure Bicep template describing the Azure resources.
-└── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
-```
 
 ## Instructions
 
