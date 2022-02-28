@@ -74,6 +74,27 @@ For more information regarding the relevance of this sample, please see the foll
 - ssh (Secure Shell)
 - scp (Secure Copy Protocol)
 
+To follow the procedures in this example, you need a command line terminal or shell to run commands.
+
+In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
+
+<!-- markdownlint-disable MD040 -->
+```
+this is a command
+```
+
+In other code listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
+
+<!-- markdownlint-disable MD040 -->
+```
+$ this is a command
+> This is output
+```
+
+For long commands, we use an escape character (`\`) to split a command over multiple lines.
+
+On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
+
 ## File structure
 
 <!-- markdownlint-disable MD040 -->
