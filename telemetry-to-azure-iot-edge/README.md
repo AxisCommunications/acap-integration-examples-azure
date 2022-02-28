@@ -15,6 +15,7 @@
 - [Overview](#overview)
 - [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
+    - [Command-line terminal](#command-line-terminal)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
     - [Create X.509 certificates](#create-x509-certificates)
@@ -73,6 +74,8 @@ For more information regarding the relevance of this sample, please see the foll
 - OpenSSL ([install](https://www.openssl.org/))
 - ssh (Secure Shell)
 - scp (Secure Copy Protocol)
+
+### Command-line terminal
 
 To follow the procedures in this example you need a command-line terminal or shell to run commands.
 

@@ -12,6 +12,7 @@
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
+    - [Command-line terminal](#command-line-terminal)
 - [File structure](#file-structure)
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
@@ -37,6 +38,8 @@ The camera will send images to the blob container via an API Management endpoint
 ## Prerequisites
 
 - A network camera from Axis Communications (example has been verified to work on a camera with firmware version >=9.80.3.1)
+
+### Command-line terminal
 
 No command-line terminal is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your terminal and executed.
 
