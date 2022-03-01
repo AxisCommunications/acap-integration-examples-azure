@@ -1,10 +1,11 @@
 // Azure Bicep template deploying the required resources to send images from an
 // Axis camera to an Azure storage account.
 //
-// The template can be deployed from a terminal using the following command.
+// The template can be deployed from a command-line interface using the
+// following command.
 //
-// az deployment group create -g <resource group> -f main.bicep --parameters \
-//   publisherEmail=<e-mail address>
+//   az deployment group create -g <resource group> -f main.bicep --parameters \
+//     publisherEmail=<e-mail address>
 
 @description('Email address to receive system notifications sent from API Management.')
 param publisherEmail string

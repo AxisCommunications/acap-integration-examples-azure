@@ -1,7 +1,8 @@
 // Azure Bicep template deploying the required resources to send telemetry from
 // an Axis camera to Azure IoT Hub.
 //
-// The template can be deployed from a terminal using the following command.
+// The template can be deployed from a command-line interface using the
+// following command.
 //
 //   az deployment group create -g <resource group> -f main.bicep --parameters \
 //     objectId=$(az ad signed-in-user show --query objectId --output tsv) \

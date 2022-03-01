@@ -13,6 +13,7 @@
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
+- [Command-line interface](#command-line-interface)
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
     - [Configure the camera](#configure-the-camera)
@@ -48,6 +49,33 @@ telemetry-to-azure-iot-hub
 ├── main.bicep    Azure Bicep template describing the Azure resources.
 └── main.json     Azure Resource Manager (ARM) template describing the Azure resources.
 ```
+
+## Command-line interface
+
+No command-line interface is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
+
+<!-- markdownlint-disable MD040 -->
+```
+this is a command
+```
+
+In other command listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
+
+<!-- markdownlint-disable MD040 -->
+```
+$ this is a command
+> This is output
+```
+
+Command listings where your input is required are marked using angle brackets (`<` and `>`).
+
+```sh
+some-command <your input>
+```
+
+For long commands, we use an escape character (`\`) to split a command over multiple lines.
+
+On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
 
 ## Instructions
 
@@ -156,7 +184,7 @@ Assuming that the new device will be named `device02`, enter the following infor
 
 With the new Azure IoT device created, navigate to your Key Vault instance and select *Certificates* under *Settings* in the left pane. Click the `ca` certificate and download it in the same way as you previously downloaded the `device` certificate.
 
-With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a terminal and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
+With the CA certificate downloaded, and assumed to have the name `keyvault.pfx`, please open a command-line interface and run the following commands to create a new device certificate. At this point you will need to have [OpenSSL](https://www.openssl.org/) installed on your computer.
 
 ```sh
 # Define a variable with the name of the new device

@@ -16,6 +16,7 @@
 - [Instructions](#instructions)
     - [Deploy Azure resources](#deploy-azure-resources)
     - [Configure the camera](#configure-the-camera)
+- [Command-line interface](#command-line-interface)
 - [Cleanup](#cleanup)
 - [Troubleshooting](#troubleshooting)
     - [No images are sent to the Azure storage account](#no-images-are-sent-to-the-azure-storage-account)
@@ -104,6 +105,33 @@ Now let's navigate to the *Rules* tab. Here we'll finally create a rule that com
 Click the *Save* button.
 
 At this point the rule will become active and send a snapshot to Azure storage every minute. Navigate to your storage account in Azure Portal, select the container `images`, and within that container you will find the uploaded images.
+
+## Command-line interface
+
+No command-line interface is needed to run this example even though command listings are present in the example. In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
+
+<!-- markdownlint-disable MD040 -->
+```
+this is a command
+```
+
+In other command listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
+
+<!-- markdownlint-disable MD040 -->
+```
+$ this is a command
+> This is output
+```
+
+Command listings where your input is required are marked using angle brackets (`<` and `>`).
+
+```sh
+some-command <your input>
+```
+
+For long commands, we use an escape character (`\`) to split a command over multiple lines.
+
+On Linux and macOS, use your preferred shell and package manager. On Windows 10 you can use the Windows Command Prompt.
 
 ## Cleanup
 

@@ -16,6 +16,7 @@
 - [Mentions](#mentions)
 - [Prerequisites](#prerequisites)
 - [File structure](#file-structure)
+- [Command-line interface](#command-line-interface)
 - [Instructions](#instructions)
     - [Create X.509 certificates](#create-x509-certificates)
     - [Deploy Azure resources](#deploy-azure-resources)
@@ -87,6 +88,35 @@ telemetry-to-azure-iot-edge
 │                                  IoT Edge agent module and the IoT Edge hub module.
 └── openssl.cnf                    Configuration file for OpenSSL.
 ```
+
+## Command-line interface
+
+To follow the procedures in this example you need a command-line interface or shell to run commands.
+
+In some command listings, the commands are described as is, ready to be copied to your command-line interface and executed.
+
+<!-- markdownlint-disable MD040 -->
+```
+this is a command
+```
+
+In other command listings, commands are preceded by a prompt symbol (`$`) when the output of the command also is of importance.
+
+<!-- markdownlint-disable MD040 -->
+```
+$ this is a command
+> This is output
+```
+
+Command listings where your input is required are marked using angle brackets (`<` and `>`).
+
+```sh
+some-command <your input>
+```
+
+For long commands, we use an escape character (`\`) to split a command over multiple lines.
+
+On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
 
 ## Instructions
 
@@ -440,7 +470,7 @@ $ ls -la
 
 The output above is an indication of the problem. The file permissions only allow the currently logged in user, and its group, to read the files. But as it turns out, Azure IoT Edge needs to be able to read them as well.
 
-In the same terminal, issue the following commands to allow all users on the computer to read the certificates.
+In the same command-line interface, issue the following commands to allow all users on the computer to read the certificates.
 
 ```sh
 chmod o+r *.pem
