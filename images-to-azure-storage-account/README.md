@@ -73,7 +73,7 @@ some-command <your input>
 
 For long commands, we use an escape character (`\`) to split a command over multiple lines.
 
-On Linux and macOS, use your preferred shell and package manager. On Windows 10, you can [install the Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/install) to get a Windows-integrated version of Ubuntu and Bash.
+On Linux and macOS, use your preferred shell and package manager. On Windows 10 you can use the Windows Command Prompt.
 
 ## Instructions
 
