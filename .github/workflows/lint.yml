@@ -18,3 +18,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
           FILTER_REGEX_EXCLUDE: .*/main.json  # Exclude ARM templates generated from Bicep templates
+          MARKDOWN_CONFIG_FILE: .markdownlint.yml
