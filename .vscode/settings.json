@@ -1,8 +1,5 @@
 {
   "cSpell.words": ["ACAPs", "Lund", "azuredeploy", "eastus"],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.markdownlint": true
-  },
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
     "editor.formatOnSave": true,
