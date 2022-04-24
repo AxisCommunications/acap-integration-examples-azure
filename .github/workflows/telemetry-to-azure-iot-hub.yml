@@ -14,6 +14,6 @@ jobs:
       run:
         working-directory: telemetry-to-azure-iot-hub
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: az bicep build --file main.bicep
       - run: ../.scripts/assert-azure-deploy-uri.sh telemetry-to-azure-iot-hub
