@@ -14,6 +14,6 @@ jobs:
       run:
         working-directory: images-to-azure-storage-account
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: az bicep build --file main.bicep
       - run: ../.scripts/assert-azure-deploy-uri.sh images-to-azure-storage-account
