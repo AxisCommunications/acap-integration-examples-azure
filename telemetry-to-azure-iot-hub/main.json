@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.4.1272.37030",
-      "templateHash": "122078402494127881"
+      "version": "0.16.2.56959",
+      "templateHash": "11670617607947410692"
     }
   },
   "parameters": {
@@ -51,7 +51,7 @@
   "resources": [
     {
       "type": "Microsoft.Devices/IotHubs",
-      "apiVersion": "2021-03-31",
+      "apiVersion": "2021-07-02",
       "name": "[format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))]",
       "location": "[parameters('location')]",
       "sku": {
@@ -70,7 +70,7 @@
       "apiVersion": "2020-08-01-preview",
       "name": "[guid(resourceGroup().id, 'contributor')]",
       "properties": {
-        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')).principalId]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2018-11-30').principalId]",
         "roleDefinitionId": "[variables('contributorRoleId')]",
         "principalType": "ServicePrincipal"
       },
@@ -99,7 +99,7 @@
           },
           {
             "tenantId": "[variables('tenantId')]",
-            "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub')).principalId]",
+            "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2018-11-30').principalId]",
             "permissions": {
               "certificates": [
                 "all"
@@ -148,11 +148,11 @@
   "outputs": {
     "host": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')))).hostName]"
+      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2021-07-02').hostName]"
     },
     "username": {
       "type": "string",
-      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash')))).hostName, parameters('deviceIdentity'))]"
+      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2021-07-02').hostName, parameters('deviceIdentity'))]"
     },
     "clientId": {
       "type": "string",
