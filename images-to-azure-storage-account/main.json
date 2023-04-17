@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.4.1272.37030",
-      "templateHash": "10401452965887447216"
+      "version": "0.16.2.56959",
+      "templateHash": "9944908891468855965"
     }
   },
   "parameters": {
@@ -30,16 +30,15 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('{0}/{1}/{2}', format('image{0}', uniqueString(resourceGroup().id)), 'default', 'images')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', format('image{0}', uniqueString(resourceGroup().id)), 'default')]",
-        "[resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id)))]"
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', format('image{0}', uniqueString(resourceGroup().id)), 'default')]"
       ]
     },
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('{0}/{1}', format('image{0}', uniqueString(resourceGroup().id)), 'default')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id)))]"
@@ -54,8 +53,6 @@
         "value": "            <policies>\n              <inbound>\n                <base />\n              </inbound>\n              <backend>\n                <base />\n              </backend>\n              <outbound>\n                <base />\n                <mock-response status-code=\"200\" content-type=\"application/json\" />\n              </outbound>\n              <on-error>\n                <base />\n              </on-error>\n            </policies>\n          "
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
         "[resourceId('Microsoft.ApiManagement/service/apis/operations', variables('commonName'), 'azurestorage', 'get')]"
       ]
     },
@@ -68,8 +65,6 @@
         "value": "            <policies>\n              <inbound>\n                <check-header name=\"Content-Type\" failed-check-httpcode=\"400\" failed-check-error-message=\"Unsupported Content-Type header, use image/jpeg\">\n                  <value>image/jpeg</value>\n                </check-header>\n                <check-header name=\"content-disposition\" failed-check-httpcode=\"400\" failed-check-error-message=\"Missing header content-disposition\" />\n                <set-variable name=\"BlobName\" value=\"@{\n                  string contentDisposition = context.Request.Headers.GetValueOrDefault(\"content-disposition\");\n                  var regex = new Regex(\"filename=\\\"(?<filename>.*)\\\"\");\n                  var match = regex.Match(contentDisposition);\n                  var filename = match.Groups[\"filename\"].Value;\n                  return filename;\n                }\" />\n                <choose>\n                  <when condition=\"@(context.Variables.GetValueOrDefault(\"BlobName\") == \"\")\">\n                    <return-response>\n                      <set-status code=\"400\" reason=\"Bad request\" />\n                      <set-body>@(new JObject(new JProperty(\"statusCode\", 400), new JProperty(\"message\", \"Incorrect format provided in content-disposition header\")).ToString())</set-body>\n                    </return-response>\n                  </when>\n                </choose>\n                <base />\n                <set-variable name=\"BlobEndpoint\" value=\"{{BlobEndpoint}}\" />\n                <set-variable name=\"ContainerName\" value=\"{{ContainerName}}\" />\n                <set-method>PUT</set-method>\n                <set-header name=\"x-ms-version\" exists-action=\"override\">\n                  <value>2020-06-12</value>\n                </set-header>\n                <set-header name=\"x-ms-blob-type\" exists-action=\"override\">\n                  <value>BlockBlob</value>\n                </set-header>\n                <set-backend-service base-url=\"@{\n                  string blobEndpoint = context.Variables.GetValueOrDefault<string>(\"BlobEndpoint\");\n                  string containerName = context.Variables.GetValueOrDefault<string>(\"ContainerName\");\n                  string blobName = context.Variables.GetValueOrDefault<string>(\"BlobName\");\n                  return String.Format(\"{0}{1}/{2}\", blobEndpoint, containerName, blobName);\n                }\" />\n                <authentication-managed-identity resource=\"https://storage.azure.com/\" />\n              </inbound>\n              <backend>\n                <base />\n              </backend>\n              <outbound>\n                <base />\n              </outbound>\n              <on-error>\n                <base />\n              </on-error>\n            </policies>\n          "
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
         "[resourceId('Microsoft.ApiManagement/service/apis/operations', variables('commonName'), 'azurestorage', 'post')]"
       ]
     },
@@ -83,8 +78,7 @@
         "method": "GET"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]"
       ]
     },
     {
@@ -97,8 +91,7 @@
         "method": "POST"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]"
       ]
     },
     {
@@ -120,7 +113,7 @@
       "name": "[format('{0}/{1}', variables('commonName'), 'BlobEndpoint')]",
       "properties": {
         "displayName": "BlobEndpoint",
-        "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id)))).primaryEndpoints.blob]"
+        "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2022-09-01').primaryEndpoints.blob]"
       },
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
@@ -150,7 +143,7 @@
         "subscriptionKeyParameterNames": {
           "query": "accessToken"
         },
-        "serviceUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id)))).primaryEndpoints.blob]",
+        "serviceUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2022-09-01').primaryEndpoints.blob]",
         "protocols": [
           "https"
         ],
@@ -163,7 +156,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2022-09-01",
       "name": "[format('image{0}', uniqueString(resourceGroup().id))]",
       "location": "[parameters('location')]",
       "sku": {
@@ -206,7 +199,7 @@
   "outputs": {
     "endpoint": {
       "type": "string",
-      "value": "[format('{0}?accessToken={1}', reference(resourceId('Microsoft.ApiManagement/service', variables('commonName'))).gatewayUrl, reference(resourceId('Microsoft.ApiManagement/service/subscriptions', variables('commonName'), 'AxisDeviceSubscription')).primaryKey)]"
+      "value": "[format('{0}?accessToken={1}', reference(resourceId('Microsoft.ApiManagement/service', variables('commonName')), '2021-01-01-preview').gatewayUrl, reference(resourceId('Microsoft.ApiManagement/service/subscriptions', variables('commonName'), 'AxisDeviceSubscription'), '2021-01-01-preview').primaryKey)]"
     }
   }
 }
