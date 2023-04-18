@@ -40,7 +40,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-preview' = {
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(resourceGroup().id)
   scope: storage::blobService::container
   properties: {
