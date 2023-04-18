@@ -54,7 +54,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-prev
 // Azure storage account.
 // -----------------------------------------------------------------------------
 
-resource apiService 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
+resource apiService 'Microsoft.ApiManagement/service@2022-08-01' = {
   name: commonName
   location: location
   sku: {
