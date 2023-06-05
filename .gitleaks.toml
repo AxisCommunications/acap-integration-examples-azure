@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[allowlist]
+stopwords = [
+  '''abcdef1234567890abcdef1234567890'''
+]
