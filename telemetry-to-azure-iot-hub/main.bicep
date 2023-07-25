@@ -5,14 +5,14 @@
 // following command.
 //
 //   az deployment group create -g <resource group> -f main.bicep --parameters \
-//     objectId=$(az ad signed-in-user show --query objectId --output tsv) \
+//     objectId=$(az ad signed-in-user show --query id --output tsv) \
 //     organizationName=<organization name>
 
 @description('''
   The object ID of your Azure Active Directory user. The object ID can be found
   either by navigating to your user in Azure Active Directory, or by running the
   following command in the Azure Cloud Shell:
-  'az ad signed-in-user show --query objectId --output tsv'.
+  'az ad signed-in-user show --query id --output tsv'.
   ''')
 param objectId string
 
