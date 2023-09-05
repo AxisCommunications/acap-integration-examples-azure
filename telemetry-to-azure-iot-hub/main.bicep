@@ -42,7 +42,7 @@ var hash = uniqueString(resourceGroup().id)
 // Azure IoT Hub receiving telemetry from the Axis camera
 // -----------------------------------------------------------------------------
 
-resource iotHub 'Microsoft.Devices/IotHubs@2021-03-31' = {
+resource iotHub 'Microsoft.Devices/IotHubs@2023-06-30' = {
   name: '${iotHubNamePrefix}-${hash}'
   location: location
   sku: {
