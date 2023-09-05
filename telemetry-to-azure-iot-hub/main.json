@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "4154603747113907066"
+      "version": "0.20.4.51522",
+      "templateHash": "2341707945311114851"
     }
   },
   "parameters": {
@@ -51,7 +51,7 @@
   "resources": [
     {
       "type": "Microsoft.Devices/IotHubs",
-      "apiVersion": "2021-03-31",
+      "apiVersion": "2023-06-30",
       "name": "[format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))]",
       "location": "[parameters('location')]",
       "sku": {
@@ -148,11 +148,11 @@
   "outputs": {
     "host": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2021-03-31').hostName]"
+      "value": "[reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2023-06-30').hostName]"
     },
     "username": {
       "type": "string",
-      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2021-03-31').hostName, parameters('deviceIdentity'))]"
+      "value": "[format('{0}/{1}/?api-version=2018-06-30', reference(resourceId('Microsoft.Devices/IotHubs', format('{0}-{1}', parameters('iotHubNamePrefix'), variables('hash'))), '2023-06-30').hostName, parameters('deviceIdentity'))]"
     },
     "clientId": {
       "type": "string",
