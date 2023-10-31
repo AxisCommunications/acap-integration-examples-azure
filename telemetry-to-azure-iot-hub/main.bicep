@@ -122,7 +122,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
 // uploading them to Azure Key Vault
 // -----------------------------------------------------------------------------
 
-resource certificates 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+resource certificates 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
   name: 'certificates'
   location: location
   kind: 'AzureCLI'
