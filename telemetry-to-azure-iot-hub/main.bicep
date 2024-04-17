@@ -56,7 +56,7 @@ resource iotHub 'Microsoft.Devices/IotHubs@2021-03-31' = {
 // Azure Key Vault
 // -----------------------------------------------------------------------------
 
-resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
+resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: 'telemetry-to-azure-iot-hub'
   location: location
 }
