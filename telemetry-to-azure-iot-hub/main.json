@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "4154603747113907066"
+      "version": "0.26.170.59819",
+      "templateHash": "15713375098750990184"
     }
   },
   "parameters": {
@@ -61,7 +61,7 @@
     },
     {
       "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
-      "apiVersion": "2018-11-30",
+      "apiVersion": "2023-01-31",
       "name": "telemetry-to-azure-iot-hub",
       "location": "[parameters('location')]"
     },
@@ -70,7 +70,7 @@
       "apiVersion": "2020-08-01-preview",
       "name": "[guid(resourceGroup().id, 'contributor')]",
       "properties": {
-        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2018-11-30').principalId]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2023-01-31').principalId]",
         "roleDefinitionId": "[variables('contributorRoleId')]",
         "principalType": "ServicePrincipal"
       },
@@ -99,7 +99,7 @@
           },
           {
             "tenantId": "[variables('tenantId')]",
-            "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2018-11-30').principalId]",
+            "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'telemetry-to-azure-iot-hub'), '2023-01-31').principalId]",
             "permissions": {
               "certificates": [
                 "all"
