@@ -79,7 +79,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-prev
 // Key Vault containing X.509 certificates
 // -----------------------------------------------------------------------------
 
-resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
+resource keyVault 'Microsoft.KeyVault/vaults@2024-11-01' = {
   name: 'keyvault-${hash}'
   location: location
   properties: {
