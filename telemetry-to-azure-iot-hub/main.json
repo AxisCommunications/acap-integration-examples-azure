@@ -4,35 +4,35 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "4154603747113907066"
+      "version": "0.32.4.45862",
+      "templateHash": "2779101028831033704"
     }
   },
   "parameters": {
     "objectId": {
       "type": "string",
       "metadata": {
-        "description": "  The object ID of your Azure Active Directory user. The object ID can be found\n  either by navigating to your user in Azure Active Directory, or by running the\n  following command in the Azure Cloud Shell:\n  'az ad signed-in-user show --query id --output tsv'.\n  "
+        "description": "  The object ID of your Azure Active Directory user. The object ID can be found\neither by navigating to your user in Azure Active Directory, or by running the\nfollowing command in the Azure Cloud Shell:\n'az ad signed-in-user show --query id --output tsv'.\n"
       }
     },
     "organizationName": {
       "type": "string",
       "metadata": {
-        "description": "  The name of your organization, used when generating the X.509 certificates.\n  "
+        "description": "  The name of your organization, used when generating the X.509 certificates.\n"
       }
     },
     "iotHubNamePrefix": {
       "type": "string",
       "defaultValue": "axis-telemetry",
       "metadata": {
-        "description": "  The prefix of the IoT Hub name. A generated hash will be appended to the name,\n  guaranteeing its uniqueness on Azure.\n  "
+        "description": "  The prefix of the IoT Hub name. A generated hash will be appended to the name,\nguaranteeing its uniqueness on Azure.\n"
       }
     },
     "deviceIdentity": {
       "type": "string",
       "defaultValue": "device01",
       "metadata": {
-        "description": "  The name of the IoT device, used for authentication and access control.\n  "
+        "description": "  The name of the IoT device, used for authentication and access control.\n"
       }
     },
     "location": {
@@ -80,7 +80,7 @@
     },
     {
       "type": "Microsoft.KeyVault/vaults",
-      "apiVersion": "2021-06-01-preview",
+      "apiVersion": "2024-11-01",
       "name": "[format('keyvault-{0}', variables('hash'))]",
       "location": "[parameters('location')]",
       "properties": {
