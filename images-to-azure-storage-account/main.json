@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "1049202066985159064"
+      "version": "0.36.1.42791",
+      "templateHash": "18162429234563191072"
     }
   },
   "parameters": {
@@ -30,7 +30,7 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2025-01-01",
       "name": "[format('{0}/{1}/{2}', format('image{0}', uniqueString(resourceGroup().id)), 'default', 'images')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts/blobServices', format('image{0}', uniqueString(resourceGroup().id)), 'default')]"
@@ -38,7 +38,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts/blobServices",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2025-01-01",
       "name": "[format('{0}/{1}', format('image{0}', uniqueString(resourceGroup().id)), 'default')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id)))]"
@@ -103,8 +103,8 @@
         "displayName": "Axis Device Subscription"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]"
+        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]"
       ]
     },
     {
@@ -113,7 +113,7 @@
       "name": "[format('{0}/{1}', variables('commonName'), 'BlobEndpoint')]",
       "properties": {
         "displayName": "BlobEndpoint",
-        "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2021-04-01').primaryEndpoints.blob]"
+        "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2025-01-01').primaryEndpoints.blob]"
       },
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
@@ -143,7 +143,7 @@
         "subscriptionKeyParameterNames": {
           "query": "accessToken"
         },
-        "serviceUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2021-04-01').primaryEndpoints.blob]",
+        "serviceUrl": "[reference(resourceId('Microsoft.Storage/storageAccounts', format('image{0}', uniqueString(resourceGroup().id))), '2025-01-01').primaryEndpoints.blob]",
         "protocols": [
           "https"
         ],
@@ -156,7 +156,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2021-04-01",
+      "apiVersion": "2025-01-01",
       "name": "[format('image{0}', uniqueString(resourceGroup().id))]",
       "location": "[parameters('location')]",
       "sku": {

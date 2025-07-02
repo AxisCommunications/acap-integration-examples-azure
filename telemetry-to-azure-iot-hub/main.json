@@ -4,35 +4,35 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "4154603747113907066"
+      "version": "0.36.1.42791",
+      "templateHash": "13887177383849221858"
     }
   },
   "parameters": {
     "objectId": {
       "type": "string",
       "metadata": {
-        "description": "  The object ID of your Azure Active Directory user. The object ID can be found\n  either by navigating to your user in Azure Active Directory, or by running the\n  following command in the Azure Cloud Shell:\n  'az ad signed-in-user show --query id --output tsv'.\n  "
+        "description": "  The object ID of your Azure Active Directory user. The object ID can be found\neither by navigating to your user in Azure Active Directory, or by running the\nfollowing command in the Azure Cloud Shell:\n'az ad signed-in-user show --query id --output tsv'.\n"
       }
     },
     "organizationName": {
       "type": "string",
       "metadata": {
-        "description": "  The name of your organization, used when generating the X.509 certificates.\n  "
+        "description": "  The name of your organization, used when generating the X.509 certificates.\n"
       }
     },
     "iotHubNamePrefix": {
       "type": "string",
       "defaultValue": "axis-telemetry",
       "metadata": {
-        "description": "  The prefix of the IoT Hub name. A generated hash will be appended to the name,\n  guaranteeing its uniqueness on Azure.\n  "
+        "description": "  The prefix of the IoT Hub name. A generated hash will be appended to the name,\nguaranteeing its uniqueness on Azure.\n"
       }
     },
     "deviceIdentity": {
       "type": "string",
       "defaultValue": "device01",
       "metadata": {
-        "description": "  The name of the IoT device, used for authentication and access control.\n  "
+        "description": "  The name of the IoT device, used for authentication and access control.\n"
       }
     },
     "location": {
