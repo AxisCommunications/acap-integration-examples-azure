@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.19.5.34762",
-      "templateHash": "1049202066985159064"
+      "version": "0.36.177.2456",
+      "templateHash": "283956019374341599"
     }
   },
   "parameters": {
@@ -46,7 +46,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/operations/policies",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}/{2}/{3}', variables('commonName'), 'azurestorage', 'get', 'policy')]",
       "properties": {
         "format": "rawxml",
@@ -58,7 +58,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/operations/policies",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}/{2}/{3}', variables('commonName'), 'azurestorage', 'post', 'policy')]",
       "properties": {
         "format": "rawxml",
@@ -70,7 +70,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/operations",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}/{2}', variables('commonName'), 'azurestorage', 'get')]",
       "properties": {
         "displayName": "Test recipient",
@@ -83,7 +83,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/apis/operations",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}/{2}', variables('commonName'), 'azurestorage', 'post')]",
       "properties": {
         "displayName": "Send image",
@@ -96,20 +96,20 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/subscriptions",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}', variables('commonName'), 'AxisDeviceSubscription')]",
       "properties": {
         "scope": "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
         "displayName": "Axis Device Subscription"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]",
-        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]"
+        "[resourceId('Microsoft.ApiManagement/service', variables('commonName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis', variables('commonName'), 'azurestorage')]"
       ]
     },
     {
       "type": "Microsoft.ApiManagement/service/namedValues",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}', variables('commonName'), 'BlobEndpoint')]",
       "properties": {
         "displayName": "BlobEndpoint",
@@ -122,7 +122,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/namedValues",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}', variables('commonName'), 'ContainerName')]",
       "properties": {
         "displayName": "ContainerName",
@@ -135,7 +135,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/apis",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[format('{0}/{1}', variables('commonName'), 'azurestorage')]",
       "properties": {
         "displayName": "AzureStorage",
@@ -170,7 +170,7 @@
       "scope": "[format('Microsoft.Storage/storageAccounts/{0}/blobServices/{1}/containers/{2}', format('image{0}', uniqueString(resourceGroup().id)), 'default', 'images')]",
       "name": "[guid(resourceGroup().id)]",
       "properties": {
-        "principalId": "[reference(resourceId('Microsoft.ApiManagement/service', variables('commonName')), '2021-01-01-preview', 'full').identity.principalId]",
+        "principalId": "[reference(resourceId('Microsoft.ApiManagement/service', variables('commonName')), '2024-05-01', 'full').identity.principalId]",
         "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('storageBlobDataContributorRoleId'))]"
       },
       "dependsOn": [
@@ -180,7 +180,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service",
-      "apiVersion": "2021-01-01-preview",
+      "apiVersion": "2024-05-01",
       "name": "[variables('commonName')]",
       "location": "[parameters('location')]",
       "sku": {
@@ -199,7 +199,7 @@
   "outputs": {
     "endpoint": {
       "type": "string",
-      "value": "[format('{0}?accessToken={1}', reference(resourceId('Microsoft.ApiManagement/service', variables('commonName')), '2021-01-01-preview').gatewayUrl, reference(resourceId('Microsoft.ApiManagement/service/subscriptions', variables('commonName'), 'AxisDeviceSubscription'), '2021-01-01-preview').primaryKey)]"
+      "value": "[format('{0}?accessToken={1}', reference(resourceId('Microsoft.ApiManagement/service', variables('commonName')), '2024-05-01').gatewayUrl, listSecrets(resourceId('Microsoft.ApiManagement/service/subscriptions', variables('commonName'), 'AxisDeviceSubscription'), '2024-05-01').primaryKey)]"
     }
   }
 }

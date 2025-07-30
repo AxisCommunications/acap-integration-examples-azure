@@ -54,7 +54,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-08-01-prev
 // Azure storage account.
 // -----------------------------------------------------------------------------
 
-resource apiService 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
+resource apiService 'Microsoft.ApiManagement/service@2024-05-01' = {
   name: commonName
   location: location
   sku: {
@@ -215,4 +215,4 @@ resource apiService 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
 // -----------------------------------------------------------------------------
 
 // The HTTPS endpoint the camera should send images to
-output endpoint string = '${apiService.properties.gatewayUrl}?accessToken=${apiService::subscription.properties.primaryKey}'
+output endpoint string = '${apiService.properties.gatewayUrl}?accessToken=${apiService::subscription.listSecrets().primaryKey}'
