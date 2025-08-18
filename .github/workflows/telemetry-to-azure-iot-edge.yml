@@ -15,6 +15,6 @@ jobs:
       run:
         working-directory: telemetry-to-azure-iot-edge
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: shellcheck ./create-certificates.sh
       - run: shellcheck ./create-cloud-resources.sh
