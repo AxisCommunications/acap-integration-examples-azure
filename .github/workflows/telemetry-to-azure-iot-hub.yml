@@ -14,5 +14,5 @@ jobs:
       run:
         working-directory: telemetry-to-azure-iot-hub
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: az bicep build --file main.bicep
