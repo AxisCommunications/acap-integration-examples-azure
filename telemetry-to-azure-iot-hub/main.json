@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.36.177.2456",
-      "templateHash": "7486986418919542766"
+      "version": "0.37.4.10188",
+      "templateHash": "4426358653507966897"
     }
   },
   "parameters": {
@@ -80,7 +80,7 @@
     },
     {
       "type": "Microsoft.KeyVault/vaults",
-      "apiVersion": "2021-06-01-preview",
+      "apiVersion": "2025-05-01",
       "name": "[format('keyvault-{0}', variables('hash'))]",
       "location": "[parameters('location')]",
       "properties": {
