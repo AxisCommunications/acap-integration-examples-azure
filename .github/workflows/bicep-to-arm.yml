@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       - run: az bicep install
       - name: Transpile all 'main.bicep' templates
         run: find . -name 'main.bicep' -exec az bicep build --file {} \;
