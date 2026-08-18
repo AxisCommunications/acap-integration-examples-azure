@@ -7,6 +7,9 @@ on:
       - images-to-azure-storage-account/**
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
